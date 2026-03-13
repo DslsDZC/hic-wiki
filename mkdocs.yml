@@ -1,0 +1,47 @@
+site_name: HIC Wiki
+site_description: HIC 架构文档
+site_author: DslsDZC
+repo_url: https://github.com/DslsDZC/hic-wiki
+edit_uri: edit/main/docs/   # 指向 main 分支的 docs 目录
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: zh
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: 切换暗色模式
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: 切换亮色模式
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      fallback_to_build_date: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/DslsDZC/HIC
+
+copyright: Copyright &copy; 2026 HIC 社区
