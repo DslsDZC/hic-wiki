@@ -374,19 +374,10 @@ AUDIT_LOG_IPC_CALL(caller, cap, result);
 
 ---
 
-## 九、参考文献
-
-- [HIC架构文档](./README.md)
-- [三层模型](./三层模型.md)
-- [能力系统](../Wiki/11-CapabilitySystem.md)
-- [API版本管理](../Wiki/23-APIVersioning.md)
-
----
-
 ## 接口分类与原则
 
 **重要**: 关于接口分类和官方接口维护原则的详细信息，请参阅：
-- [接口分类与维护原则](./interface_classification.md)
+- [接口分类与维护原则](./接口规范.md)
 
 ### 官方接口维护原则总结
 

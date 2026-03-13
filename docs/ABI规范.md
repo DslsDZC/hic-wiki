@@ -11,7 +11,7 @@ SPDX-License-Identifier: CC-BY-4.0
 ## 一、ABI 设计原则
 
 **重要**: 关于接口分类和官方接口维护原则的详细信息，请参阅：
-- [接口分类与维护原则](./interface_classification.md)
+- [接口分类与维护原则](./接口规范.md)
 
 ### 1.1 核心原则
 
@@ -471,8 +471,8 @@ HIC ABI必须与以下链接器兼容：
 - [System V AMD64 ABI](https://gitlab.com/x86-psABIs/x86-64-ABI)
 - [AAPCS64 (ARM64)](https://github.com/ARM-software/abi-aa)
 - [RISC-V Calling Convention](https://github.com/riscv-non-isa/riscv-elf-psabi-doc)
-- [API接口列表](./api_interface_list.md)
-- [开发者指南](./api_developer_guide.md)
+- [API接口列表](./API列表.md)
+- [开发者指南](./API开发.md)
 
 ---
 
