@@ -1,705 +1,8 @@
-
-<!doctype html>
-<html lang="zh" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="HIC 架构文档">
-      
-      
-        <meta name="author" content="DslsDZC">
-      
-      
-      
-        <link rel="prev" href="../%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83/">
-      
-      
-      
-        
-      
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
-    
-    
-      
-        <title>滚动更新 - HIC Wiki</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
-      
-      
-
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="HIC Wiki" class="md-header__button md-logo" aria-label="HIC Wiki" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            HIC Wiki
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              滚动更新
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换暗色模式"  type="radio" name="__palette" id="__palette_0">
-    
-      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
-    
-      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-</form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="查找">
-        
-        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            正在初始化搜索引擎
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-      
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/DslsDZC/hic-wiki" title="前往仓库" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
-    GitHub
-  </div>
-</a>
-      </div>
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-
-<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="HIC Wiki" class="md-nav__button md-logo" aria-label="HIC Wiki" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
-
-    </a>
-    HIC Wiki
-  </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/DslsDZC/hic-wiki" title="前往仓库" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
-    GitHub
-  </div>
-</a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    HIC 架构文档索引
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ABI%E8%A7%84%E8%8C%83/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ABI规范
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../AMP%E9%80%BB%E8%BE%91%E6%A0%B8%E5%BF%83/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    AMP逻辑核心
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../API%E5%88%97%E8%A1%A8/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    API列表
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../API%E5%BC%80%E5%8F%91/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    API开发
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../CHAL%E5%85%BC%E5%AE%B9%E5%B1%82/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CHAL兼容层
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../HIC%E6%9C%AF%E8%AF%AD/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    HIC术语
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../bios/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Bios
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../uefi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Uefi
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E4%B8%89%E5%B1%82%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    三层模型
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    可移植性
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%E7%A8%8B%E5%BA%8F/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    引导加载程序
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    接口规范
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    滚动更新
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-  
-                  
-
-
-  
-    <a href="https://github.com/DslsDZC/hic-wiki/edit/main/docs/滚动更新.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
-    </a>
-  
-  
-    
-      
-    
-    <a href="https://github.com/DslsDZC/hic-wiki/raw/main/docs/滚动更新.md" title="查看本页的源代码" class="md-content__button md-icon">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
-    </a>
-  
-
-
-  <h1>滚动更新</h1>
-
-<!--
+<!doctype html><html lang=zh class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="HIC 架构文档"><meta name=author content=DslsDZC><link href=../%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83/ rel=prev><link rel=icon href=../assets/images/favicon.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.5"><title>滚动更新 - HIC Wiki</title><link rel=stylesheet href=../assets/stylesheets/main.484c7ddc.min.css><link rel=stylesheet href=../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=页眉> <a href=.. title="HIC Wiki" class="md-header__button md-logo" aria-label="HIC Wiki" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> HIC Wiki </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> 滚动更新 </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label=切换暗色模式 type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title=切换暗色模式 for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg> </label> <input class=md-option data-md-color-media data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label=切换亮色模式 type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title=切换亮色模式 for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg> </label> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=搜索 placeholder=搜索 autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=查找> <button type=reset class="md-search__icon md-icon" title=清空当前内容 aria-label=清空当前内容 tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> 正在初始化搜索引擎 </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/DslsDZC/HIC title=前往仓库 class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary" aria-label=导航栏 data-md-level=0> <label class=md-nav__title for=__drawer> <a href=.. title="HIC Wiki" class="md-nav__button md-logo" aria-label="HIC Wiki" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> HIC Wiki </label> <div class=md-nav__source> <a href=https://github.com/DslsDZC/HIC title=前往仓库 class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=.. class=md-nav__link> <span class=md-ellipsis> HIC 架构文档索引 </span> </a> </li> <li class=md-nav__item> <a href=../ABI%E8%A7%84%E8%8C%83/ class=md-nav__link> <span class=md-ellipsis> ABI规范 </span> </a> </li> <li class=md-nav__item> <a href=../AMP%E9%80%BB%E8%BE%91%E6%A0%B8%E5%BF%83/ class=md-nav__link> <span class=md-ellipsis> AMP逻辑核心 </span> </a> </li> <li class=md-nav__item> <a href=../API%E5%88%97%E8%A1%A8/ class=md-nav__link> <span class=md-ellipsis> API列表 </span> </a> </li> <li class=md-nav__item> <a href=../API%E5%BC%80%E5%8F%91/ class=md-nav__link> <span class=md-ellipsis> API开发 </span> </a> </li> <li class=md-nav__item> <a href=../CHAL%E5%85%BC%E5%AE%B9%E5%B1%82/ class=md-nav__link> <span class=md-ellipsis> CHAL兼容层 </span> </a> </li> <li class=md-nav__item> <a href=../HIC%E6%9C%AF%E8%AF%AD/ class=md-nav__link> <span class=md-ellipsis> HIC术语 </span> </a> </li> <li class=md-nav__item> <a href=../bios/ class=md-nav__link> <span class=md-ellipsis> Bios </span> </a> </li> <li class=md-nav__item> <a href=../uefi/ class=md-nav__link> <span class=md-ellipsis> Uefi </span> </a> </li> <li class=md-nav__item> <a href=../%E4%B8%89%E5%B1%82%E6%A8%A1%E5%9E%8B/ class=md-nav__link> <span class=md-ellipsis> 三层模型 </span> </a> </li> <li class=md-nav__item> <a href=../%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7/ class=md-nav__link> <span class=md-ellipsis> 可移植性 </span> </a> </li> <li class=md-nav__item> <a href=../%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%E7%A8%8B%E5%BA%8F/ class=md-nav__link> <span class=md-ellipsis> 引导加载程序 </span> </a> </li> <li class=md-nav__item> <a href=../%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83/ class=md-nav__link> <span class=md-ellipsis> 接口规范 </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> 滚动更新 </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label=目录> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <a href=https://github.com/DslsDZC/hic-wiki/edit/main/docs/滚动更新.md title=编辑此页 class="md-content__button md-icon" rel=edit> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg> </a> <a href=https://github.com/DslsDZC/hic-wiki/raw/main/docs/滚动更新.md title=查看本页的源代码 class="md-content__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg> </a> <h1>滚动更新</h1> <!--
 SPDX-FileCopyrightText: 2026 DslsDZC <dsls.dzc@gmail.com>
 
 SPDX-License-Identifier: CC-BY-4.0
--->
-
-<p>HIC（分级隔离内核）滚动更新与自动恢复流程</p>
-<ol>
-<li>滚动更新概述</li>
-</ol>
-<p>滚动更新是HIC架构的核心特性之一，允许在不中断系统核心服务的情况下，对单个Privileged-1服务进行版本升级或降级。该流程支持零停机更新，确保系统在更新期间持续提供服务。</p>
-<ol>
-<li>滚动更新架构组件</li>
-</ol>
-<p>2.1 核心参与组件</p>
-<div class="highlight"><pre><span></span><code>滚动更新架构组件                
+--> <p>HIC（分级隔离内核）滚动更新与自动恢复流程</p> <ol> <li>滚动更新概述</li> </ol> <p>滚动更新是HIC架构的核心特性之一，允许在不中断系统核心服务的情况下，对单个Privileged-1服务进行版本升级或降级。该流程支持零停机更新，确保系统在更新期间持续提供服务。</p> <ol> <li>滚动更新架构组件</li> </ol> <p>2.1 核心参与组件</p> <div class=highlight><pre><span></span><code>滚动更新架构组件                
 
  1. 模块管理器服务 (Module Manager)          
     - 协调整个更新流程                        
@@ -723,23 +26,14 @@ SPDX-License-Identifier: CC-BY-4.0
 
  5. 客户端应用 (Client Applications)          
     - 通过能力系统重定向无缝切换到新实例      
-</code></pre></div>
-<p>2.2 状态迁移协议接口</p>
-<p>每个支持滚动更新的服务必须实现以下协议接口：</p>
-<div class="highlight"><pre><span></span><code>状态迁移协议 (State Migration Protocol)
+</code></pre></div> <p>2.2 状态迁移协议接口</p> <p>每个支持滚动更新的服务必须实现以下协议接口：</p> <div class=highlight><pre><span></span><code>状态迁移协议 (State Migration Protocol)
 ├── 状态导出函数: export_state(context) → 状态快照
 ├── 状态导入函数: import_state(快照, context) → 成功/失败
 ├── 连接迁移函数: migrate_connection(连接ID, 目标实例) → 迁移结果
 ├── 准备迁移函数: prepare_migration() → 准备就绪信号
 ├── 完成迁移函数: complete_migration() → 清理旧状态
 └── 中止迁移函数: abort_migration() → 恢复原状态
-</code></pre></div>
-<ol>
-<li>滚动更新详细流程</li>
-</ol>
-<p>3.1 阶段1：更新准备与验证</p>
-<p>步骤1.1：更新请求与策略检查</p>
-<div class="highlight"><pre><span></span><code>1. 更新触发源：
+</code></pre></div> <ol> <li>滚动更新详细流程</li> </ol> <p>3.1 阶段1：更新准备与验证</p> <p>步骤1.1：更新请求与策略检查</p> <div class=highlight><pre><span></span><code>1. 更新触发源：
    - 管理员手动发起更新命令
    - 自动更新调度器（按计划时间）
    - 安全漏洞检测系统（紧急更新）
@@ -756,9 +50,7 @@ SPDX-License-Identifier: CC-BY-4.0
    - 检查目标服务是否支持滚动更新
    - 验证当前系统负载是否适合更新
    - 确认有足够的资源用于并行运行新旧实例
-</code></pre></div>
-<p>步骤1.2：新模块获取与验证</p>
-<div class="highlight"><pre><span></span><code>1. 仓库查询：
+</code></pre></div> <p>步骤1.2：新模块获取与验证</p> <div class=highlight><pre><span></span><code>1. 仓库查询：
    - 向可信模块仓库查询netstack.v1.3.0
    - 获取模块元数据：
      * UUID: 550e8400-e29b-41d4-a716-446655440000
@@ -781,9 +73,7 @@ SPDX-License-Identifier: CC-BY-4.0
    └── 制定依赖更新顺序：
        1. 先更新eth_driver到v1.2.0
        2. 再更新netstack到v1.3.0
-</code></pre></div>
-<p>步骤1.3：资源预留检查</p>
-<div class="highlight"><pre><span></span><code>1. 内存资源检查：
+</code></pre></div> <p>步骤1.3：资源预留检查</p> <div class=highlight><pre><span></span><code>1. 内存资源检查：
    - 查询Core-0内存管理器
    - 预留新实例所需内存（连续物理内存区域）
    - 检查当前空闲内存是否≥2×服务内存需求（新旧并行）
@@ -799,9 +89,7 @@ SPDX-License-Identifier: CC-BY-4.0
 4. 存储资源：
    - 为状态快照预留临时存储空间
    - 检查持久化存储的可用空间
-</code></pre></div>
-<p>步骤1.4：依赖服务通知</p>
-<div class="highlight"><pre><span></span><code>1. 识别依赖服务：
+</code></pre></div> <p>步骤1.4：依赖服务通知</p> <div class=highlight><pre><span></span><code>1. 识别依赖服务：
    ├── 上游服务（依赖netstack的）：
    │    ├── web_server (HTTP服务)
    │    ├── dns_resolver (DNS解析器)
@@ -819,10 +107,7 @@ SPDX-License-Identifier: CC-BY-4.0
 3. 更新下游依赖：
    - 如果eth_driver需要先更新，启动独立的滚动更新流程
    - 等待所有依赖更新完成
-</code></pre></div>
-<p>3.2 阶段2：新实例创建与预热</p>
-<p>步骤2.1：新服务沙箱创建</p>
-<div class="highlight"><pre><span></span><code>1. 请求Core-0创建沙箱：
+</code></pre></div> <p>3.2 阶段2：新实例创建与预热</p> <p>步骤2.1：新服务沙箱创建</p> <div class=highlight><pre><span></span><code>1. 请求Core-0创建沙箱：
    ├── 沙箱配置：
    │    ├── 沙箱ID: netstack-v1.3.0-temp
    │    ├── 内存配额: 64 MB连续物理内存
@@ -842,9 +127,7 @@ SPDX-License-Identifier: CC-BY-4.0
    │    ├── 调整到实际的物理地址
    │    └── 验证所有引用在沙箱边界内
    └── 设置入口点：_service_entry（导出函数表）
-</code></pre></div>
-<p>步骤2.2：能力授予与资源配置</p>
-<div class="highlight"><pre><span></span><code>1. 初始能力授予：
+</code></pre></div> <p>步骤2.2：能力授予与资源配置</p> <div class=highlight><pre><span></span><code>1. 初始能力授予：
    ├── 复制基础能力（从旧实例模板）：
    │    ├── 自身内存访问能力
    │    ├── 系统调用门能力
@@ -869,9 +152,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 导出旧实例的防火墙规则
         ├── 导入到新实例（非激活状态）
         └── 记录规则哈希用于一致性检查
-</code></pre></div>
-<p>步骤2.3：新实例初始化</p>
-<div class="highlight"><pre><span></span><code>1. 冷启动初始化：
+</code></pre></div> <p>步骤2.3：新实例初始化</p> <div class=highlight><pre><span></span><code>1. 冷启动初始化：
    ├── 调用新实例的init()函数
    ├── 初始化内部数据结构：
    │    ├── 连接表（空）
@@ -896,9 +177,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 新实例告知其支持的迁移特性
         ├── 旧实例告知其状态结构版本
         └── 双方确认兼容性
-</code></pre></div>
-<p>步骤2.4：预热与一致性检查</p>
-<div class="highlight"><pre><span></span><code>1. 配置同步预热：
+</code></pre></div> <p>步骤2.4：预热与一致性检查</p> <div class=highlight><pre><span></span><code>1. 配置同步预热：
    ├── 静态配置同步：
    │    ├── IP地址配置（复制但不激活）
    │    ├── DNS服务器列表
@@ -925,10 +204,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 运行内存压力测试（短时间）
         ├── 检查内存分配/释放平衡
         └── 确认无明显的资源泄漏
-</code></pre></div>
-<p>3.3 阶段3：状态迁移与流量切换</p>
-<p>步骤3.1：状态快照与分片</p>
-<div class="highlight"><pre><span></span><code>1. 全局状态快照：
+</code></pre></div> <p>3.3 阶段3：状态迁移与流量切换</p> <p>步骤3.1：状态快照与分片</p> <div class=highlight><pre><span></span><code>1. 全局状态快照：
    ├── 旧实例调用export_state():
    │    ├── 冻结可迁移状态（连接表、会话信息）
    │    ├── 排除不可迁移状态（硬件特定状态）
@@ -955,9 +231,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── VPN隧道
         ├── 数据库长连接
         └── WebSocket连接
-</code></pre></div>
-<p>步骤3.2：分阶段迁移策略</p>
-<div class="highlight"><pre><span></span><code>迁移策略：四阶段渐进迁移
+</code></pre></div> <p>步骤3.2：分阶段迁移策略</p> <div class=highlight><pre><span></span><code>迁移策略：四阶段渐进迁移
    阶段       迁移连接类型     目标比例             健康检查     
  阶段1        空闲连接         30%总连接数          每迁移批后   
  (预热)        低优先级后台     (约300/1000连接)                 
@@ -967,9 +241,7 @@ SPDX-License-Identifier: CC-BY-4.0
  (关键)        流媒体、VIP      (再迁移300连接)                  
  阶段4        持久会话         100%总连接数         每迁移1个   
  (收尾)        VPN、数据库长连   (最后100连接)        连接后      
-</code></pre></div>
-<p>步骤3.3：单个连接迁移详细流程</p>
-<div class="highlight"><pre><span></span><code>对于每个连接迁移（以TCP连接为例）：
+</code></pre></div> <p>步骤3.3：单个连接迁移详细流程</p> <div class=highlight><pre><span></span><code>对于每个连接迁移（以TCP连接为例）：
 
 1. 迁移前准备：
    ├── 旧实例准备连接迁移包：
@@ -1021,9 +293,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 如果验证失败，触发回滚该连接
         ├── 记录失败原因到审计日志
         ├── 更新迁移失败统计
-</code></pre></div>
-<p>步骤3.4：流量切换策略</p>
-<div class="highlight"><pre><span></span><code>1. 双活并行阶段：
+</code></pre></div> <p>步骤3.4：流量切换策略</p> <div class=highlight><pre><span></span><code>1. 双活并行阶段：
    ├── 新旧实例同时运行
    ├── 流量分配策略：
    │    ├── 新连接：100%路由到新实例
@@ -1058,10 +328,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 已连接的客户端：通过能力系统透明重定向
         ├── 新客户端：直接连接到新端点
         ├── 支持长连接的客户端：收到重定向通知
-</code></pre></div>
-<p>3.4 阶段4：验证与清理</p>
-<p>步骤4.1：功能验证测试</p>
-<div class="highlight"><pre><span></span><code>1. 端到端功能测试：
+</code></pre></div> <p>3.4 阶段4：验证与清理</p> <p>步骤4.1：功能验证测试</p> <div class=highlight><pre><span></span><code>1. 端到端功能测试：
    ├── 基础连通性测试：
    │    ├── ICMP ping测试（本地和远程）
    │    ├── DNS解析测试
@@ -1098,9 +365,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 如果错误率&gt;1%，触发警告
         ├── 如果内存泄漏&gt;1MB/分钟，触发警告
         ├── 如果任何健康检查失败，触发警报
-</code></pre></div>
-<p>步骤4.2：旧实例资源回收</p>
-<div class="highlight"><pre><span></span><code>1. 优雅关闭旧实例：
+</code></pre></div> <p>步骤4.2：旧实例资源回收</p> <div class=highlight><pre><span></span><code>1. 优雅关闭旧实例：
    ├── 发送关闭请求：
    │    ├── 模块管理器向旧实例发送&quot;准备关闭&quot;通知
    │    ├── 旧实例停止接受新连接
@@ -1138,9 +403,7 @@ SPDX-License-Identifier: CC-BY-4.0
    ├── 释放状态快照存储
    ├── 清理迁移控制通道
    └── 移除临时监控配置
-</code></pre></div>
-<p>步骤4.3：更新完成确认</p>
-<div class="highlight"><pre><span></span><code>1. 最终状态报告：
+</code></pre></div> <p>步骤4.3：更新完成确认</p> <div class=highlight><pre><span></span><code>1. 最终状态报告：
    ├── 生成更新报告：
    │    ├── 更新开始/结束时间戳
    │    ├── 总迁移连接数：1000个
@@ -1172,12 +435,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 标记netstack.v1.2.0为&quot;可清理&quot;
         ├── 垃圾回收策略：7天后自动删除
         ├── 保留至少一个历史版本作为紧急回滚
-</code></pre></div>
-<ol>
-<li>滚动失败与自动恢复机制</li>
-</ol>
-<p>4.1 失败检测与分类</p>
-<div class="highlight"><pre><span></span><code>失败分类体系：
+</code></pre></div> <ol> <li>滚动失败与自动恢复机制</li> </ol> <p>4.1 失败检测与分类</p> <div class=highlight><pre><span></span><code>失败分类体系：
  失败级别      检测指标         响应时间         恢复策略         
  级别1         新实例启动失败   &lt;10秒            中止更新，保持   
  (严重)        或崩溃                            旧实例运行       
@@ -1187,9 +445,7 @@ SPDX-License-Identifier: CC-BY-4.0
  (中)          失败或超时                        记录日志         
  级别4         轻微性能下降     &lt;5分钟           继续监控，自动   
  (低)          (&lt;10%)或警告                      优化调整         
-</code></pre></div>
-<p>4.2 自动回滚触发条件</p>
-<div class="highlight"><pre><span></span><code>自动回滚决策矩阵：
+</code></pre></div> <p>4.2 自动回滚触发条件</p> <div class=highlight><pre><span></span><code>自动回滚决策矩阵：
  触发条件                 严重程度      检测窗口      自动动作     
  新实例连续崩溃(3次)      严重          5分钟         立即回滚     
  服务错误率&gt;5%            严重          10分钟        立即回滚     
@@ -1197,10 +453,7 @@ SPDX-License-Identifier: CC-BY-4.0
  性能下降&gt;30%             高            15分钟        告警，准备，回滚         
  迁移成功率&lt;80%           高            30分钟        暂停，等待，人工决策     
  资源泄漏&gt;100MB/小时      中            1小时         告警，继续，监控         
-</code></pre></div>
-<p>4.3 自动回滚详细流程</p>
-<p>步骤5.1：回滚决策与触发</p>
-<div class="highlight"><pre><span></span><code>1. 监控系统检测异常：
+</code></pre></div> <p>4.3 自动回滚详细流程</p> <p>步骤5.1：回滚决策与触发</p> <div class=highlight><pre><span></span><code>1. 监控系统检测异常：
    ├── 健康检查失败（连续3次）
    ├── 性能监控告警（超过阈值）
    ├── 错误日志激增（异常模式检测）
@@ -1226,9 +479,7 @@ SPDX-License-Identifier: CC-BY-4.0
    │    ├── 如果超时未确认，自动执行回滚
    │    └── 紧急情况（数据损坏风险）跳过确认
    └── 审计日志：&quot;自动回滚触发，原因：错误率6.2%持续12分钟&quot;
-</code></pre></div>
-<p>步骤5.2：连接回滚迁移</p>
-<div class="highlight"><pre><span></span><code>1. 回滚迁移策略：
+</code></pre></div> <p>步骤5.2：连接回滚迁移</p> <div class=highlight><pre><span></span><code>1. 回滚迁移策略：
    ├── 反向迁移计划：
    │    ├── 优先回滚关键连接（VIP客户、实时流）
    │    ├── 然后回滚普通连接
@@ -1267,9 +518,7 @@ SPDX-License-Identifier: CC-BY-4.0
    │    ├── 客户端重新连接
    │    └── 损失部分连接，但保证数据安全
    └── 审计日志：&quot;执行紧急回滚，放弃32个连接迁移&quot;
-</code></pre></div>
-<p>步骤5.3：服务端点回滚</p>
-<div class="highlight"><pre><span></span><code>1. Core-0原子回滚：
+</code></pre></div> <p>步骤5.3：服务端点回滚</p> <div class=highlight><pre><span></span><code>1. Core-0原子回滚：
    ├── 模块管理器请求Core-0回滚服务端点
    ├── Core-0执行原子操作：
    │    ├── 锁定服务注册表
@@ -1308,9 +557,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 删除状态快照文件
         ├── 清理日志文件
         ├── 移除临时网络配置
-</code></pre></div>
-<p>步骤5.4：回滚后验证与恢复</p>
-<div class="highlight"><pre><span></span><code>1. 功能恢复验证：
+</code></pre></div> <p>步骤5.4：回滚后验证与恢复</p> <div class=highlight><pre><span></span><code>1. 功能恢复验证：
    ├── 基础功能测试：
    │    ├── 立即执行快速健康检查
    │    ├── 测试关键业务路径
@@ -1363,9 +610,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 制定测试增强计划
         ├── 更新回滚策略
         ├── 改进监控检测能力
-</code></pre></div>
-<p>4.4 部分回滚策略</p>
-<div class="highlight"><pre><span></span><code>当不是所有功能都失败时的智能回滚：
+</code></pre></div> <p>4.4 部分回滚策略</p> <div class=highlight><pre><span></span><code>当不是所有功能都失败时的智能回滚：
 
 1. 功能模块化回滚：
    ├── 如果服务是模块化设计：
@@ -1399,12 +644,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 时间点恢复（Point-in-Time Recovery）
         ├── 增量修复（只修复受影响数据）
         ├── 数据验证和修复工具
-</code></pre></div>
-<ol>
-<li>监控与告警增强</li>
-</ol>
-<p>5.1 滚动更新专项监控</p>
-<div class="highlight"><pre><span></span><code>滚动更新监控仪表板：
+</code></pre></div> <ol> <li>监控与告警增强</li> </ol> <p>5.1 滚动更新专项监控</p> <div class=highlight><pre><span></span><code>滚动更新监控仪表板：
  指标类别          监控指标                   告警阈值        
  迁移进度         迁移连接数/总连接数         进度停滞&gt;5分钟  
                  迁移成功率                   成功率&lt;95%      
@@ -1418,9 +658,7 @@ SPDX-License-Identifier: CC-BY-4.0
  服务健康         健康检查失败次数            连续3次失败     
                  服务可用性                   可用性&lt;99.9%    
                  关键功能检查                 任何功能失败    
-</code></pre></div>
-<p>5.2 智能告警与预测</p>
-<div class="highlight"><pre><span></span><code>1. 预测性告警：
+</code></pre></div> <p>5.2 智能告警与预测</p> <div class=highlight><pre><span></span><code>1. 预测性告警：
    ├── 基于历史数据预测：
    │    ├── 预测迁移完成时间
    │    ├── 预测资源使用趋势
@@ -1451,12 +689,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 防止告警风暴
         ├── 关联告警合并
         ├── 维护期告警静默
-</code></pre></div>
-<ol>
-<li>优化与最佳实践</li>
-</ol>
-<p>6.1 性能优化策略</p>
-<div class="highlight"><pre><span></span><code>1. 迁移性能优化：
+</code></pre></div> <ol> <li>优化与最佳实践</li> </ol> <p>6.1 性能优化策略</p> <div class=highlight><pre><span></span><code>1. 迁移性能优化：
    ├── 批量迁移优化：
    │    ├── 批量准备连接状态（一次准备100个连接）
    │    ├── 批量传输状态数据
@@ -1487,9 +720,7 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 自适应超时（基于网络状况）
         ├── 分层超时（不同操作不同超时）
         ├── 快速失败（明显错误立即失败）
-</code></pre></div>
-<p>6.2 安全增强</p>
-<div class="highlight"><pre><span></span><code>1. 迁移过程安全：
+</code></pre></div> <p>6.2 安全增强</p> <div class=highlight><pre><span></span><code>1. 迁移过程安全：
    ├── 传输安全：
    │    ├── 所有迁移数据加密（AES-256-GCM）
    │    ├── 完整性保护（HMAC-SHA256）
@@ -1520,138 +751,6 @@ SPDX-License-Identifier: CC-BY-4.0
         ├── 回滚确认机制（防止误触发）
         ├── 回滚影响分析（显示影响范围）
         ├── 回滚模拟测试（预览效果）
-</code></pre></div>
-
-
-
-
-
-
-
-  
-    
-  
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="最后更新">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月13日 02:46:04 UTC">2026年3月13日</span>
-  </span>
-
-    
-    
-    
-    
-  </aside>
-
-
-
-
-<div class="md-typeset" style="margin-top: 2em;">
-  <script src="https://giscus.app/client.js"
-        data-repo="DslsDZC/hic-wiki"
-        data-repo-id="R_kgDORfnhAw"
-        data-category="Announcements"
-        data-category-id="DIC_kwDORfnhA84C4Rfk"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-  </script>
-</div>
-                
-  <div class="md-typeset" style="margin-top: 2em;">
-  <script src="https://giscus.app/client.js"
-        data-repo="DslsDZC/hic-wiki"
-        data-repo-id="R_kgDORfnhAw"
-        data-category="Announcements"
-        data-category-id="DIC_kwDORfnhA84C4Rfk"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-  </script>
-</div>
-
-              </article>
-            </div>
-          
-          
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; 2026 HIC 社区
-    </div>
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
-        
-<div class="md-social">
-  
-    
-    
-    
-    
-      
-      
-    
-    <a href="https://github.com/DslsDZC/HIC" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
-    </a>
-  
-</div>
-      
-    </div>
-  </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
-    
-    
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
-      
-    
-  </body>
-</html>
+</code></pre></div> <aside class=md-source-file> <span class=md-source-file__fact> <span class=md-icon title=最后更新> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg> </span> <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月13日 02:46:04 UTC">2026年3月13日</span> </span> </aside> <div class=md-typeset style="margin-top: 2em;"> <script src=https://giscus.app/client.js data-repo=DslsDZC/hic-wiki data-repo-id=R_kgDORfnhAw data-category=Announcements data-category-id=DIC_kwDORfnhA84C4Rfk data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN data-loading=lazy crossorigin=anonymous async>
+  </script> </div> <div class=md-typeset style="margin-top: 2em;"> <script src=https://giscus.app/client.js data-repo=DslsDZC/hic-wiki data-repo-id=R_kgDORfnhAw data-category=Announcements data-category-id=DIC_kwDORfnhA84C4Rfk data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN data-loading=lazy crossorigin=anonymous async>
+  </script> </div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> <div class=md-copyright__highlight> Copyright &copy; 2026 HIC 社区 </div> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> <div class=md-social> <a href=https://github.com/DslsDZC/HIC target=_blank rel=noopener title=github.com class=md-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 512 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script> <script src=../assets/javascripts/bundle.79ae519e.min.js></script> </body> </html>

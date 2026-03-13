@@ -1,2647 +1,322 @@
-
-<!doctype html>
-<html lang="zh" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="HIC 架构文档">
-      
-      
-        <meta name="author" content="DslsDZC">
-      
-      
-      
-        <link rel="prev" href="../API%E5%BC%80%E5%8F%91/">
-      
-      
-        <link rel="next" href="../HIC%E6%9C%AF%E8%AF%AD/">
-      
-      
-        
-      
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
-    
-    
-      
-        <title>CHAL兼容层 - HIC Wiki</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
-      
-      
-
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#chal" class="md-skip">
-          跳转至
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="HIC Wiki" class="md-header__button md-logo" aria-label="HIC Wiki" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            HIC Wiki
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              CHAL兼容层
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换暗色模式"  type="radio" name="__palette" id="__palette_0">
-    
-      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
-    
-      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
-      </label>
-    
-  
-</form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="查找">
-        
-        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            正在初始化搜索引擎
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-      
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/DslsDZC/hic-wiki" title="前往仓库" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
-    GitHub
-  </div>
-</a>
-      </div>
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-
-<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="HIC Wiki" class="md-nav__button md-logo" aria-label="HIC Wiki" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
-
-    </a>
-    HIC Wiki
-  </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/DslsDZC/hic-wiki" title="前往仓库" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
-  </div>
-  <div class="md-source__repository">
-    GitHub
-  </div>
-</a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    HIC 架构文档索引
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ABI%E8%A7%84%E8%8C%83/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ABI规范
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../AMP%E9%80%BB%E8%BE%91%E6%A0%B8%E5%BF%83/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    AMP逻辑核心
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../API%E5%88%97%E8%A1%A8/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    API列表
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../API%E5%BC%80%E5%8F%91/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    API开发
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CHAL兼容层
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CHAL兼容层
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        版本信息
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chal_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一、CHAL概述
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="一、CHAL概述">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-chal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.1 什么是CHAL？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-chal-vs-hal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.2 CHAL vs HAL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13-chal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.3 CHAL的优势
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chal_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        二、CHAL设计原则
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="二、CHAL设计原则">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.1 简单原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.2 直观原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.3 方便原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#24" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.4 兼容原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chal_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        三、CHAL接口分类
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="三、CHAL接口分类">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 内存操作
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.1 内存操作">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        基础读写
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        内存拷贝操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        安全操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-io" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 IO操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 中断控制
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 内存屏障
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.5 时间操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#36" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.6 页操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#37" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.7 位操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#38" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.8 原子操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#39-cpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.9 CPU操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#310" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.10 等待操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        四、错误处理
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="四、错误处理">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 错误代码
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 错误检查工具
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 错误处理示例
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        五、版本兼容性
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="五、版本兼容性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.1 版本信息
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.2 版本检查
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.3 兼容性规则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#54" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.4 使用示例
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        六、C++支持
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="六、C++支持">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.1 命名空间
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#62" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.2 使用示例
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        七、调试支持
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="七、调试支持">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.1 调试宏
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.2 调试函数
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        八、最佳实践
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="八、最佳实践">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#81" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.1 使用建议
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#82" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.2 避免的做法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#83" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.3 性能考虑
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        九、迁移指南
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="九、迁移指南">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#91-halchal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.1 从HAL迁移到CHAL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#92" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.2 迁移检查清单
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        十、参考文档
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        更新日志
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="更新日志">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#v100-2026-02-26" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        v1.0.0 (2026-02-26)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../HIC%E6%9C%AF%E8%AF%AD/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    HIC术语
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../bios/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Bios
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../uefi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Uefi
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E4%B8%89%E5%B1%82%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    三层模型
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    可移植性
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%E7%A8%8B%E5%BA%8F/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    引导加载程序
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    接口规范
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    滚动更新
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        版本信息
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chal_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一、CHAL概述
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="一、CHAL概述">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-chal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.1 什么是CHAL？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-chal-vs-hal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.2 CHAL vs HAL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13-chal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.3 CHAL的优势
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chal_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        二、CHAL设计原则
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="二、CHAL设计原则">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.1 简单原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.2 直观原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.3 方便原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#24" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.4 兼容原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chal_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        三、CHAL接口分类
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="三、CHAL接口分类">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 内存操作
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.1 内存操作">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        基础读写
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        内存拷贝操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        安全操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-io" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 IO操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 中断控制
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 内存屏障
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.5 时间操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#36" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.6 页操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#37" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.7 位操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#38" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.8 原子操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#39-cpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.9 CPU操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#310" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.10 等待操作
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        四、错误处理
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="四、错误处理">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 错误代码
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 错误检查工具
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 错误处理示例
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        五、版本兼容性
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="五、版本兼容性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.1 版本信息
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.2 版本检查
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.3 兼容性规则
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#54" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.4 使用示例
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        六、C++支持
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="六、C++支持">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.1 命名空间
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#62" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.2 使用示例
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        七、调试支持
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="七、调试支持">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.1 调试宏
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7.2 调试函数
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        八、最佳实践
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="八、最佳实践">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#81" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.1 使用建议
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#82" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.2 避免的做法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#83" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8.3 性能考虑
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        九、迁移指南
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="九、迁移指南">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#91-halchal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.1 从HAL迁移到CHAL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#92" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.2 迁移检查清单
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        十、参考文档
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        更新日志
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="更新日志">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#v100-2026-02-26" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        v1.0.0 (2026-02-26)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-  
-                  
-
-
-  
-    <a href="https://github.com/DslsDZC/hic-wiki/edit/main/docs/CHAL兼容层.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
-    </a>
-  
-  
-    
-      
-    
-    <a href="https://github.com/DslsDZC/hic-wiki/raw/main/docs/CHAL兼容层.md" title="查看本页的源代码" class="md-content__button md-icon">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
-    </a>
-  
-
-
-<!--
+<!doctype html><html lang=zh class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="HIC 架构文档"><meta name=author content=DslsDZC><link href=../API%E5%BC%80%E5%8F%91/ rel=prev><link href=../HIC%E6%9C%AF%E8%AF%AD/ rel=next><link rel=icon href=../assets/images/favicon.png><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.7.5"><title>CHAL兼容层 - HIC Wiki</title><link rel=stylesheet href=../assets/stylesheets/main.484c7ddc.min.css><link rel=stylesheet href=../assets/stylesheets/palette.ab4e12ef.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#chal class=md-skip> 跳转至 </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=页眉> <a href=.. title="HIC Wiki" class="md-header__button md-logo" aria-label="HIC Wiki" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> HIC Wiki </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> CHAL兼容层 </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label=切换暗色模式 type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title=切换暗色模式 for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg> </label> <input class=md-option data-md-color-media data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label=切换亮色模式 type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title=切换亮色模式 for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg> </label> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=搜索 placeholder=搜索 autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=查找> <button type=reset class="md-search__icon md-icon" title=清空当前内容 aria-label=清空当前内容 tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> 正在初始化搜索引擎 </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/DslsDZC/HIC title=前往仓库 class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary" aria-label=导航栏 data-md-level=0> <label class=md-nav__title for=__drawer> <a href=.. title="HIC Wiki" class="md-nav__button md-logo" aria-label="HIC Wiki" data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg> </a> HIC Wiki </label> <div class=md-nav__source> <a href=https://github.com/DslsDZC/HIC title=前往仓库 class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=.. class=md-nav__link> <span class=md-ellipsis> HIC 架构文档索引 </span> </a> </li> <li class=md-nav__item> <a href=../ABI%E8%A7%84%E8%8C%83/ class=md-nav__link> <span class=md-ellipsis> ABI规范 </span> </a> </li> <li class=md-nav__item> <a href=../AMP%E9%80%BB%E8%BE%91%E6%A0%B8%E5%BF%83/ class=md-nav__link> <span class=md-ellipsis> AMP逻辑核心 </span> </a> </li> <li class=md-nav__item> <a href=../API%E5%88%97%E8%A1%A8/ class=md-nav__link> <span class=md-ellipsis> API列表 </span> </a> </li> <li class=md-nav__item> <a href=../API%E5%BC%80%E5%8F%91/ class=md-nav__link> <span class=md-ellipsis> API开发 </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> CHAL兼容层 </span> <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> CHAL兼容层 </span> </a> <nav class="md-nav md-nav--secondary" aria-label=目录> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> 目录 </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#chal_1 class=md-nav__link> <span class=md-ellipsis> 一、CHAL概述 </span> </a> <nav class=md-nav aria-label=一、CHAL概述> <ul class=md-nav__list> <li class=md-nav__item> <a href=#11-chal class=md-nav__link> <span class=md-ellipsis> 1.1 什么是CHAL？ </span> </a> </li> <li class=md-nav__item> <a href=#12-chal-vs-hal class=md-nav__link> <span class=md-ellipsis> 1.2 CHAL vs HAL </span> </a> </li> <li class=md-nav__item> <a href=#13-chal class=md-nav__link> <span class=md-ellipsis> 1.3 CHAL的优势 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#chal_2 class=md-nav__link> <span class=md-ellipsis> 二、CHAL设计原则 </span> </a> <nav class=md-nav aria-label=二、CHAL设计原则> <ul class=md-nav__list> <li class=md-nav__item> <a href=#21 class=md-nav__link> <span class=md-ellipsis> 2.1 简单原则 </span> </a> </li> <li class=md-nav__item> <a href=#22 class=md-nav__link> <span class=md-ellipsis> 2.2 直观原则 </span> </a> </li> <li class=md-nav__item> <a href=#23 class=md-nav__link> <span class=md-ellipsis> 2.3 方便原则 </span> </a> </li> <li class=md-nav__item> <a href=#24 class=md-nav__link> <span class=md-ellipsis> 2.4 兼容原则 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#chal_3 class=md-nav__link> <span class=md-ellipsis> 三、CHAL接口分类 </span> </a> <nav class=md-nav aria-label=三、CHAL接口分类> <ul class=md-nav__list> <li class=md-nav__item> <a href=#31 class=md-nav__link> <span class=md-ellipsis> 3.1 内存操作 </span> </a> <nav class=md-nav aria-label="3.1 内存操作"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#_1 class=md-nav__link> <span class=md-ellipsis> 基础读写 </span> </a> </li> <li class=md-nav__item> <a href=#_2 class=md-nav__link> <span class=md-ellipsis> 内存拷贝操作 </span> </a> </li> <li class=md-nav__item> <a href=#_3 class=md-nav__link> <span class=md-ellipsis> 安全操作 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#32-io class=md-nav__link> <span class=md-ellipsis> 3.2 IO操作 </span> </a> </li> <li class=md-nav__item> <a href=#33 class=md-nav__link> <span class=md-ellipsis> 3.3 中断控制 </span> </a> </li> <li class=md-nav__item> <a href=#34 class=md-nav__link> <span class=md-ellipsis> 3.4 内存屏障 </span> </a> </li> <li class=md-nav__item> <a href=#35 class=md-nav__link> <span class=md-ellipsis> 3.5 时间操作 </span> </a> </li> <li class=md-nav__item> <a href=#36 class=md-nav__link> <span class=md-ellipsis> 3.6 页操作 </span> </a> </li> <li class=md-nav__item> <a href=#37 class=md-nav__link> <span class=md-ellipsis> 3.7 位操作 </span> </a> </li> <li class=md-nav__item> <a href=#38 class=md-nav__link> <span class=md-ellipsis> 3.8 原子操作 </span> </a> </li> <li class=md-nav__item> <a href=#39-cpu class=md-nav__link> <span class=md-ellipsis> 3.9 CPU操作 </span> </a> </li> <li class=md-nav__item> <a href=#310 class=md-nav__link> <span class=md-ellipsis> 3.10 等待操作 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_4 class=md-nav__link> <span class=md-ellipsis> 四、错误处理 </span> </a> <nav class=md-nav aria-label=四、错误处理> <ul class=md-nav__list> <li class=md-nav__item> <a href=#41 class=md-nav__link> <span class=md-ellipsis> 4.1 错误代码 </span> </a> </li> <li class=md-nav__item> <a href=#42 class=md-nav__link> <span class=md-ellipsis> 4.2 错误检查工具 </span> </a> </li> <li class=md-nav__item> <a href=#43 class=md-nav__link> <span class=md-ellipsis> 4.3 错误处理示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_5 class=md-nav__link> <span class=md-ellipsis> 五、版本兼容性 </span> </a> <nav class=md-nav aria-label=五、版本兼容性> <ul class=md-nav__list> <li class=md-nav__item> <a href=#51 class=md-nav__link> <span class=md-ellipsis> 5.1 版本信息 </span> </a> </li> <li class=md-nav__item> <a href=#52 class=md-nav__link> <span class=md-ellipsis> 5.2 版本检查 </span> </a> </li> <li class=md-nav__item> <a href=#53 class=md-nav__link> <span class=md-ellipsis> 5.3 兼容性规则 </span> </a> </li> <li class=md-nav__item> <a href=#54 class=md-nav__link> <span class=md-ellipsis> 5.4 使用示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#c class=md-nav__link> <span class=md-ellipsis> 六、C++支持 </span> </a> <nav class=md-nav aria-label=六、C++支持> <ul class=md-nav__list> <li class=md-nav__item> <a href=#61 class=md-nav__link> <span class=md-ellipsis> 6.1 命名空间 </span> </a> </li> <li class=md-nav__item> <a href=#62 class=md-nav__link> <span class=md-ellipsis> 6.2 使用示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_6 class=md-nav__link> <span class=md-ellipsis> 七、调试支持 </span> </a> <nav class=md-nav aria-label=七、调试支持> <ul class=md-nav__list> <li class=md-nav__item> <a href=#71 class=md-nav__link> <span class=md-ellipsis> 7.1 调试宏 </span> </a> </li> <li class=md-nav__item> <a href=#72 class=md-nav__link> <span class=md-ellipsis> 7.2 调试函数 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_7 class=md-nav__link> <span class=md-ellipsis> 八、最佳实践 </span> </a> <nav class=md-nav aria-label=八、最佳实践> <ul class=md-nav__list> <li class=md-nav__item> <a href=#81 class=md-nav__link> <span class=md-ellipsis> 8.1 使用建议 </span> </a> </li> <li class=md-nav__item> <a href=#82 class=md-nav__link> <span class=md-ellipsis> 8.2 避免的做法 </span> </a> </li> <li class=md-nav__item> <a href=#83 class=md-nav__link> <span class=md-ellipsis> 8.3 性能考虑 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_8 class=md-nav__link> <span class=md-ellipsis> 九、迁移指南 </span> </a> <nav class=md-nav aria-label=九、迁移指南> <ul class=md-nav__list> <li class=md-nav__item> <a href=#91-halchal class=md-nav__link> <span class=md-ellipsis> 9.1 从HAL迁移到CHAL </span> </a> </li> <li class=md-nav__item> <a href=#92 class=md-nav__link> <span class=md-ellipsis> 9.2 迁移检查清单 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_9 class=md-nav__link> <span class=md-ellipsis> 十、参考文档 </span> </a> </li> <li class=md-nav__item> <a href=#_10 class=md-nav__link> <span class=md-ellipsis> 更新日志 </span> </a> <nav class=md-nav aria-label=更新日志> <ul class=md-nav__list> <li class=md-nav__item> <a href=#v100-2026-02-26 class=md-nav__link> <span class=md-ellipsis> v1.0.0 (2026-02-26) </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../HIC%E6%9C%AF%E8%AF%AD/ class=md-nav__link> <span class=md-ellipsis> HIC术语 </span> </a> </li> <li class=md-nav__item> <a href=../bios/ class=md-nav__link> <span class=md-ellipsis> Bios </span> </a> </li> <li class=md-nav__item> <a href=../uefi/ class=md-nav__link> <span class=md-ellipsis> Uefi </span> </a> </li> <li class=md-nav__item> <a href=../%E4%B8%89%E5%B1%82%E6%A8%A1%E5%9E%8B/ class=md-nav__link> <span class=md-ellipsis> 三层模型 </span> </a> </li> <li class=md-nav__item> <a href=../%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7/ class=md-nav__link> <span class=md-ellipsis> 可移植性 </span> </a> </li> <li class=md-nav__item> <a href=../%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%E7%A8%8B%E5%BA%8F/ class=md-nav__link> <span class=md-ellipsis> 引导加载程序 </span> </a> </li> <li class=md-nav__item> <a href=../%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83/ class=md-nav__link> <span class=md-ellipsis> 接口规范 </span> </a> </li> <li class=md-nav__item> <a href=../%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0/ class=md-nav__link> <span class=md-ellipsis> 滚动更新 </span> </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label=目录> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> 目录 </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#chal_1 class=md-nav__link> <span class=md-ellipsis> 一、CHAL概述 </span> </a> <nav class=md-nav aria-label=一、CHAL概述> <ul class=md-nav__list> <li class=md-nav__item> <a href=#11-chal class=md-nav__link> <span class=md-ellipsis> 1.1 什么是CHAL？ </span> </a> </li> <li class=md-nav__item> <a href=#12-chal-vs-hal class=md-nav__link> <span class=md-ellipsis> 1.2 CHAL vs HAL </span> </a> </li> <li class=md-nav__item> <a href=#13-chal class=md-nav__link> <span class=md-ellipsis> 1.3 CHAL的优势 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#chal_2 class=md-nav__link> <span class=md-ellipsis> 二、CHAL设计原则 </span> </a> <nav class=md-nav aria-label=二、CHAL设计原则> <ul class=md-nav__list> <li class=md-nav__item> <a href=#21 class=md-nav__link> <span class=md-ellipsis> 2.1 简单原则 </span> </a> </li> <li class=md-nav__item> <a href=#22 class=md-nav__link> <span class=md-ellipsis> 2.2 直观原则 </span> </a> </li> <li class=md-nav__item> <a href=#23 class=md-nav__link> <span class=md-ellipsis> 2.3 方便原则 </span> </a> </li> <li class=md-nav__item> <a href=#24 class=md-nav__link> <span class=md-ellipsis> 2.4 兼容原则 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#chal_3 class=md-nav__link> <span class=md-ellipsis> 三、CHAL接口分类 </span> </a> <nav class=md-nav aria-label=三、CHAL接口分类> <ul class=md-nav__list> <li class=md-nav__item> <a href=#31 class=md-nav__link> <span class=md-ellipsis> 3.1 内存操作 </span> </a> <nav class=md-nav aria-label="3.1 内存操作"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#_1 class=md-nav__link> <span class=md-ellipsis> 基础读写 </span> </a> </li> <li class=md-nav__item> <a href=#_2 class=md-nav__link> <span class=md-ellipsis> 内存拷贝操作 </span> </a> </li> <li class=md-nav__item> <a href=#_3 class=md-nav__link> <span class=md-ellipsis> 安全操作 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#32-io class=md-nav__link> <span class=md-ellipsis> 3.2 IO操作 </span> </a> </li> <li class=md-nav__item> <a href=#33 class=md-nav__link> <span class=md-ellipsis> 3.3 中断控制 </span> </a> </li> <li class=md-nav__item> <a href=#34 class=md-nav__link> <span class=md-ellipsis> 3.4 内存屏障 </span> </a> </li> <li class=md-nav__item> <a href=#35 class=md-nav__link> <span class=md-ellipsis> 3.5 时间操作 </span> </a> </li> <li class=md-nav__item> <a href=#36 class=md-nav__link> <span class=md-ellipsis> 3.6 页操作 </span> </a> </li> <li class=md-nav__item> <a href=#37 class=md-nav__link> <span class=md-ellipsis> 3.7 位操作 </span> </a> </li> <li class=md-nav__item> <a href=#38 class=md-nav__link> <span class=md-ellipsis> 3.8 原子操作 </span> </a> </li> <li class=md-nav__item> <a href=#39-cpu class=md-nav__link> <span class=md-ellipsis> 3.9 CPU操作 </span> </a> </li> <li class=md-nav__item> <a href=#310 class=md-nav__link> <span class=md-ellipsis> 3.10 等待操作 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_4 class=md-nav__link> <span class=md-ellipsis> 四、错误处理 </span> </a> <nav class=md-nav aria-label=四、错误处理> <ul class=md-nav__list> <li class=md-nav__item> <a href=#41 class=md-nav__link> <span class=md-ellipsis> 4.1 错误代码 </span> </a> </li> <li class=md-nav__item> <a href=#42 class=md-nav__link> <span class=md-ellipsis> 4.2 错误检查工具 </span> </a> </li> <li class=md-nav__item> <a href=#43 class=md-nav__link> <span class=md-ellipsis> 4.3 错误处理示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_5 class=md-nav__link> <span class=md-ellipsis> 五、版本兼容性 </span> </a> <nav class=md-nav aria-label=五、版本兼容性> <ul class=md-nav__list> <li class=md-nav__item> <a href=#51 class=md-nav__link> <span class=md-ellipsis> 5.1 版本信息 </span> </a> </li> <li class=md-nav__item> <a href=#52 class=md-nav__link> <span class=md-ellipsis> 5.2 版本检查 </span> </a> </li> <li class=md-nav__item> <a href=#53 class=md-nav__link> <span class=md-ellipsis> 5.3 兼容性规则 </span> </a> </li> <li class=md-nav__item> <a href=#54 class=md-nav__link> <span class=md-ellipsis> 5.4 使用示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#c class=md-nav__link> <span class=md-ellipsis> 六、C++支持 </span> </a> <nav class=md-nav aria-label=六、C++支持> <ul class=md-nav__list> <li class=md-nav__item> <a href=#61 class=md-nav__link> <span class=md-ellipsis> 6.1 命名空间 </span> </a> </li> <li class=md-nav__item> <a href=#62 class=md-nav__link> <span class=md-ellipsis> 6.2 使用示例 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_6 class=md-nav__link> <span class=md-ellipsis> 七、调试支持 </span> </a> <nav class=md-nav aria-label=七、调试支持> <ul class=md-nav__list> <li class=md-nav__item> <a href=#71 class=md-nav__link> <span class=md-ellipsis> 7.1 调试宏 </span> </a> </li> <li class=md-nav__item> <a href=#72 class=md-nav__link> <span class=md-ellipsis> 7.2 调试函数 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_7 class=md-nav__link> <span class=md-ellipsis> 八、最佳实践 </span> </a> <nav class=md-nav aria-label=八、最佳实践> <ul class=md-nav__list> <li class=md-nav__item> <a href=#81 class=md-nav__link> <span class=md-ellipsis> 8.1 使用建议 </span> </a> </li> <li class=md-nav__item> <a href=#82 class=md-nav__link> <span class=md-ellipsis> 8.2 避免的做法 </span> </a> </li> <li class=md-nav__item> <a href=#83 class=md-nav__link> <span class=md-ellipsis> 8.3 性能考虑 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_8 class=md-nav__link> <span class=md-ellipsis> 九、迁移指南 </span> </a> <nav class=md-nav aria-label=九、迁移指南> <ul class=md-nav__list> <li class=md-nav__item> <a href=#91-halchal class=md-nav__link> <span class=md-ellipsis> 9.1 从HAL迁移到CHAL </span> </a> </li> <li class=md-nav__item> <a href=#92 class=md-nav__link> <span class=md-ellipsis> 9.2 迁移检查清单 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_9 class=md-nav__link> <span class=md-ellipsis> 十、参考文档 </span> </a> </li> <li class=md-nav__item> <a href=#_10 class=md-nav__link> <span class=md-ellipsis> 更新日志 </span> </a> <nav class=md-nav aria-label=更新日志> <ul class=md-nav__list> <li class=md-nav__item> <a href=#v100-2026-02-26 class=md-nav__link> <span class=md-ellipsis> v1.0.0 (2026-02-26) </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <a href=https://github.com/DslsDZC/hic-wiki/edit/main/docs/CHAL兼容层.md title=编辑此页 class="md-content__button md-icon" rel=edit> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg> </a> <a href=https://github.com/DslsDZC/hic-wiki/raw/main/docs/CHAL兼容层.md title=查看本页的源代码 class="md-content__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg> </a> <!--
 SPDX-FileCopyrightText: 2026 DslsDZC <dsls.dzc@gmail.com>
 
 SPDX-License-Identifier: CC-BY-4.0
--->
+--> <h1 id=chal>CHAL 兼容性硬件抽象层</h1> <p>本文档详细说明了HIC系统的CHAL (Compatibility Hardware Abstraction Layer) 兼容性硬件抽象层。</p> <h2 id=chal_1>一、CHAL概述</h2> <h3 id=11-chal>1.1 什么是CHAL？</h3> <p>CHAL (Compatibility Hardware Abstraction Layer) 是HIC系统的兼容性硬件抽象层，建立在现有HAL之上的一个更高级抽象层。</p> <p><strong>设计目标</strong>： - <strong>简单</strong>：减少参数，简化使用流程 - <strong>直观</strong>：使用直观的命名和参数 - <strong>方便</strong>：提供便捷的封装，减少样板代码 - <strong>兼容</strong>：保证API/ABI的向后兼容性</p> <h3 id=12-chal-vs-hal>1.2 CHAL vs HAL</h3> <table> <thead> <tr> <th>特性</th> <th>HAL (硬件抽象层)</th> <th>CHAL (兼容性抽象层)</th> </tr> </thead> <tbody> <tr> <td><strong>定位</strong></td> <td>底层硬件抽象</td> <td>高级兼容性封装</td> </tr> <tr> <td><strong>接口风格</strong></td> <td>完整、功能丰富</td> <td>简化、便捷使用</td> </tr> <tr> <td><strong>参数数量</strong></td> <td>可能较多</td> <td>通常不超过3个</td> </tr> <tr> <td><strong>命名风格</strong></td> <td>技术性、详细</td> <td>直观、简洁</td> </tr> <tr> <td><strong>兼容性保证</strong></td> <td>架构隔离</td> <td>API/ABI兼容</td> </tr> <tr> <td><strong>使用场景</strong></td> <td>内核核心代码</td> <td>应用和服务代码</td> </tr> </tbody> </table> <h3 id=13-chal>1.3 CHAL的优势</h3> <p>✅ <strong>更简单</strong>：减少参数，减少错误 ✅ <strong>更直观</strong>：命名清晰，易于理解 ✅ <strong>更方便</strong>：提供便捷封装，减少样板代码 ✅ <strong>更安全</strong>：内置错误检查和验证 ✅ <strong>更兼容</strong>：保证API/ABI的向后兼容性</p> <hr> <h2 id=chal_2>二、CHAL设计原则</h2> <h3 id=21>2.1 简单原则</h3> <p><strong>定义</strong>：函数参数不超过3个（特殊情况除外）</p> <p><strong>实施</strong>： - 提供默认值 - 减少可选参数 - 使用结构体封装复杂参数</p> <p><strong>示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* HAL风格（可能需要更多参数） */</span>
+<span class=n>hal_context_switch</span><span class=p>(</span><span class=n>prev_context</span><span class=p>,</span><span class=w> </span><span class=n>next_context</span><span class=p>,</span><span class=w> </span><span class=n>flags</span><span class=p>,</span><span class=w> </span><span class=n>options</span><span class=p>);</span>
 
-<h1 id="chal">CHAL 兼容性硬件抽象层</h1>
-<p>本文档详细说明了HIC系统的CHAL (Compatibility Hardware Abstraction Layer) 兼容性硬件抽象层。</p>
-<h2 id="_1">版本信息</h2>
-<ul>
-<li><strong>文档版本</strong>: 1.0.0</li>
-<li><strong>最后更新</strong>: 2026-02-26</li>
-<li><strong>适用内核版本</strong>: HIC Core-0 v1.0+</li>
-</ul>
-<hr />
-<h2 id="chal_1">一、CHAL概述</h2>
-<h3 id="11-chal">1.1 什么是CHAL？</h3>
-<p>CHAL (Compatibility Hardware Abstraction Layer) 是HIC系统的兼容性硬件抽象层，建立在现有HAL之上的一个更高级抽象层。</p>
-<p><strong>设计目标</strong>：
-- <strong>简单</strong>：减少参数，简化使用流程
-- <strong>直观</strong>：使用直观的命名和参数
-- <strong>方便</strong>：提供便捷的封装，减少样板代码
-- <strong>兼容</strong>：保证API/ABI的向后兼容性</p>
-<h3 id="12-chal-vs-hal">1.2 CHAL vs HAL</h3>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>HAL (硬件抽象层)</th>
-<th>CHAL (兼容性抽象层)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>定位</strong></td>
-<td>底层硬件抽象</td>
-<td>高级兼容性封装</td>
-</tr>
-<tr>
-<td><strong>接口风格</strong></td>
-<td>完整、功能丰富</td>
-<td>简化、便捷使用</td>
-</tr>
-<tr>
-<td><strong>参数数量</strong></td>
-<td>可能较多</td>
-<td>通常不超过3个</td>
-</tr>
-<tr>
-<td><strong>命名风格</strong></td>
-<td>技术性、详细</td>
-<td>直观、简洁</td>
-</tr>
-<tr>
-<td><strong>兼容性保证</strong></td>
-<td>架构隔离</td>
-<td>API/ABI兼容</td>
-</tr>
-<tr>
-<td><strong>使用场景</strong></td>
-<td>内核核心代码</td>
-<td>应用和服务代码</td>
-</tr>
-</tbody>
-</table>
-<h3 id="13-chal">1.3 CHAL的优势</h3>
-<p>✅ <strong>更简单</strong>：减少参数，减少错误
-✅ <strong>更直观</strong>：命名清晰，易于理解
-✅ <strong>更方便</strong>：提供便捷封装，减少样板代码
-✅ <strong>更安全</strong>：内置错误检查和验证
-✅ <strong>更兼容</strong>：保证API/ABI的向后兼容性</p>
-<hr />
-<h2 id="chal_2">二、CHAL设计原则</h2>
-<h3 id="21">2.1 简单原则</h3>
-<p><strong>定义</strong>：函数参数不超过3个（特殊情况除外）</p>
-<p><strong>实施</strong>：
-- 提供默认值
-- 减少可选参数
-- 使用结构体封装复杂参数</p>
-<p><strong>示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* HAL风格（可能需要更多参数） */</span>
-<span class="n">hal_context_switch</span><span class="p">(</span><span class="n">prev_context</span><span class="p">,</span><span class="w"> </span><span class="n">next_context</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">);</span>
+<span class=cm>/* CHAL风格（简化版） */</span>
+<span class=c1>// chal_context_switch(prev, next);  // 使用默认值</span>
+</code></pre></div></p> <h3 id=22>2.2 直观原则</h3> <p><strong>定义</strong>：函数名称清晰，参数名称直观</p> <p><strong>实施</strong>： - 使用动词+名词的命名方式 - 参数名称清晰表达用途 - 避免缩写和技术术语</p> <p><strong>示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 直观的命名 */</span>
+<span class=n>chal_read32</span><span class=p>(</span><span class=n>addr</span><span class=p>);</span><span class=w>        </span><span class=c1>// 清晰：读取32位</span>
+<span class=n>chal_write32</span><span class=p>(</span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>val</span><span class=p>);</span><span class=w>  </span><span class=c1>// 清晰：写入32位</span>
+<span class=n>chal_bit_set</span><span class=p>(</span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>bit</span><span class=p>);</span><span class=w>   </span><span class=c1>// 清晰：设置位</span>
+</code></pre></div></p> <h3 id=23>2.3 方便原则</h3> <p><strong>定义</strong>：提供便捷的封装，减少样板代码</p> <p><strong>实施</strong>： - 提供常用操作的快捷函数 - 使用宏简化重复代码 - 提供RAII风格的封装</p> <p><strong>示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 便捷的中断作用域 */</span>
+<span class=n>CHAL_IRQ_SCOPE</span><span class=p>();</span>
+<span class=c1>// ... 临界区代码 ...</span>
+<span class=n>CHAL_IRQ_SCOPE_END</span><span class=p>();</span>
 
-<span class="cm">/* CHAL风格（简化版） */</span>
-<span class="c1">// chal_context_switch(prev, next);  // 使用默认值</span>
-</code></pre></div></p>
-<h3 id="22">2.2 直观原则</h3>
-<p><strong>定义</strong>：函数名称清晰，参数名称直观</p>
-<p><strong>实施</strong>：
-- 使用动词+名词的命名方式
-- 参数名称清晰表达用途
-- 避免缩写和技术术语</p>
-<p><strong>示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 直观的命名 */</span>
-<span class="n">chal_read32</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span><span class="w">        </span><span class="c1">// 清晰：读取32位</span>
-<span class="n">chal_write32</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">);</span><span class="w">  </span><span class="c1">// 清晰：写入32位</span>
-<span class="n">chal_bit_set</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">bit</span><span class="p">);</span><span class="w">   </span><span class="c1">// 清晰：设置位</span>
-</code></pre></div></p>
-<h3 id="23">2.3 方便原则</h3>
-<p><strong>定义</strong>：提供便捷的封装，减少样板代码</p>
-<p><strong>实施</strong>：
-- 提供常用操作的快捷函数
-- 使用宏简化重复代码
-- 提供RAII风格的封装</p>
-<p><strong>示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 便捷的中断作用域 */</span>
-<span class="n">CHAL_IRQ_SCOPE</span><span class="p">();</span>
-<span class="c1">// ... 临界区代码 ...</span>
-<span class="n">CHAL_IRQ_SCOPE_END</span><span class="p">();</span>
+<span class=cm>/* 便捷的页操作 */</span>
+<span class=n>u64</span><span class=w> </span><span class=n>page_num</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_page_number</span><span class=p>(</span><span class=n>addr</span><span class=p>);</span>
+<span class=n>u64</span><span class=w> </span><span class=n>page_addr</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_page_address</span><span class=p>(</span><span class=n>page_num</span><span class=p>);</span>
+</code></pre></div></p> <h3 id=24>2.4 兼容原则</h3> <p><strong>定义</strong>：保证API/ABI的向后兼容性</p> <p><strong>实施</strong>： - 永不删除公开接口 - 永不修改接口签名 - 只添加新功能，不修改现有功能 - 提供版本兼容性检查</p> <p><strong>示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 版本兼容性检查 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_is_version_compatible</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 使用v1.0+的功能</span>
+<span class=p>}</span>
 
-<span class="cm">/* 便捷的页操作 */</span>
-<span class="n">u64</span><span class="w"> </span><span class="n">page_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_page_number</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
-<span class="n">u64</span><span class="w"> </span><span class="n">page_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_page_address</span><span class="p">(</span><span class="n">page_num</span><span class="p">);</span>
-</code></pre></div></p>
-<h3 id="24">2.4 兼容原则</h3>
-<p><strong>定义</strong>：保证API/ABI的向后兼容性</p>
-<p><strong>实施</strong>：
-- 永不删除公开接口
-- 永不修改接口签名
-- 只添加新功能，不修改现有功能
-- 提供版本兼容性检查</p>
-<p><strong>示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 版本兼容性检查 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_is_version_compatible</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 使用v1.0+的功能</span>
-<span class="p">}</span>
+<span class=cm>/* API兼容性检查 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_check_api_compatibility</span><span class=p>(</span><span class=n>CHAL_VERSION_1_0</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 兼容的API</span>
+<span class=p>}</span>
+</code></pre></div></p> <hr> <h2 id=chal_3>三、CHAL接口分类</h2> <h3 id=31>3.1 内存操作</h3> <h4 id=_1>基础读写</h4> <div class=highlight><pre><span></span><code><span class=n>u8</span><span class=w> </span><span class=nf>chal_read8</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_write8</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u8</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
 
-<span class="cm">/* API兼容性检查 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_check_api_compatibility</span><span class="p">(</span><span class="n">CHAL_VERSION_1_0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 兼容的API</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<hr />
-<h2 id="chal_3">三、CHAL接口分类</h2>
-<h3 id="31">3.1 内存操作</h3>
-<h4 id="_2">基础读写</h4>
-<div class="highlight"><pre><span></span><code><span class="n">u8</span><span class="w"> </span><span class="nf">chal_read8</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_write8</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
+<span class=n>u16</span><span class=w> </span><span class=nf>chal_read16</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_write16</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u16</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
 
-<span class="n">u16</span><span class="w"> </span><span class="nf">chal_read16</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_write16</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u16</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_read32</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_write32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
 
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_read32</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_write32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
+<span class=n>u64</span><span class=w> </span><span class=nf>chal_read64</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_write64</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u64</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+</code></pre></div> <h4 id=_2>内存拷贝操作</h4> <div class=highlight><pre><span></span><code><span class=kt>void</span><span class=w> </span><span class=nf>chal_memset</span><span class=p>(</span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>dst</span><span class=p>,</span><span class=w> </span><span class=n>u8</span><span class=w> </span><span class=n>c</span><span class=p>,</span><span class=w> </span><span class=n>u64</span><span class=w> </span><span class=n>n</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_memcpy</span><span class=p>(</span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>dst</span><span class=p>,</span><span class=w> </span><span class=k>const</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>src</span><span class=p>,</span><span class=w> </span><span class=n>u64</span><span class=w> </span><span class=n>n</span><span class=p>);</span>
+<span class=kt>int</span><span class=w> </span><span class=nf>chal_memcmp</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>s1</span><span class=p>,</span><span class=w> </span><span class=k>const</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>s2</span><span class=p>,</span><span class=w> </span><span class=n>u64</span><span class=w> </span><span class=n>n</span><span class=p>);</span>
+</code></pre></div> <h4 id=_3>安全操作</h4> <div class=highlight><pre><span></span><code><span class=n>chal_error_t</span><span class=w> </span><span class=nf>chal_safe_read32</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>out_val</span><span class=p>);</span>
+<span class=n>chal_error_t</span><span class=w> </span><span class=nf>chal_safe_write32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 读取设备寄存器 */</span>
+<span class=n>u32</span><span class=w> </span><span class=n>status</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_read32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>status_reg</span><span class=p>);</span>
 
-<span class="n">u64</span><span class="w"> </span><span class="nf">chal_read64</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_write64</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-</code></pre></div>
-<h4 id="_3">内存拷贝操作</h4>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">chal_memset</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_memcpy</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">chal_memcmp</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
-</code></pre></div>
-<h4 id="_4">安全操作</h4>
-<div class="highlight"><pre><span></span><code><span class="n">chal_error_t</span><span class="w"> </span><span class="nf">chal_safe_read32</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">out_val</span><span class="p">);</span>
-<span class="n">chal_error_t</span><span class="w"> </span><span class="nf">chal_safe_write32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 读取设备寄存器 */</span>
-<span class="n">u32</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_read32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">status_reg</span><span class="p">);</span>
+<span class=cm>/* 写入配置 */</span>
+<span class=n>chal_write32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>config_reg</span><span class=p>,</span><span class=w> </span><span class=mh>0x12345678</span><span class=p>);</span>
 
-<span class="cm">/* 写入配置 */</span>
-<span class="n">chal_write32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">config_reg</span><span class="p">,</span><span class="w"> </span><span class="mh">0x12345678</span><span class="p">);</span>
+<span class=cm>/* 安全读取 */</span>
+<span class=n>u32</span><span class=w> </span><span class=n>value</span><span class=p>;</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_ok</span><span class=p>(</span><span class=n>chal_safe_read32</span><span class=p>(</span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=o>&amp;</span><span class=n>value</span><span class=p>)))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 使用value</span>
+<span class=p>}</span>
+</code></pre></div></p> <h3 id=32-io>3.2 IO操作</h3> <div class=highlight><pre><span></span><code><span class=n>u8</span><span class=w> </span><span class=nf>chal_io_read8</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_io_write8</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>,</span><span class=w> </span><span class=n>u8</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
 
-<span class="cm">/* 安全读取 */</span>
-<span class="n">u32</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_ok</span><span class="p">(</span><span class="n">chal_safe_read32</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 使用value</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<h3 id="32-io">3.2 IO操作</h3>
-<div class="highlight"><pre><span></span><code><span class="n">u8</span><span class="w"> </span><span class="nf">chal_io_read8</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_io_write8</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
+<span class=n>u16</span><span class=w> </span><span class=nf>chal_io_read16</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_io_write16</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>,</span><span class=w> </span><span class=n>u16</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
 
-<span class="n">u16</span><span class="w"> </span><span class="nf">chal_io_read16</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_io_write16</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">u16</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_io_read32</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_io_write32</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 串口输出 */</span>
+<span class=n>chal_io_write8</span><span class=p>(</span><span class=n>COM1_PORT</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=sc>&#39;H&#39;</span><span class=p>);</span>
+<span class=n>chal_io_write8</span><span class=p>(</span><span class=n>COM1_PORT</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=sc>&#39;e&#39;</span><span class=p>);</span>
+<span class=n>chal_io_write8</span><span class=p>(</span><span class=n>COM1_PORT</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=sc>&#39;l&#39;</span><span class=p>);</span>
+<span class=n>chal_io_write8</span><span class=p>(</span><span class=n>COM1_PORT</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=sc>&#39;l&#39;</span><span class=p>);</span>
+<span class=n>chal_io_write8</span><span class=p>(</span><span class=n>COM1_PORT</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=sc>&#39;o&#39;</span><span class=p>);</span>
+</code></pre></div></p> <h3 id=33>3.3 中断控制</h3> <div class=highlight><pre><span></span><code><span class=kt>bool</span><span class=w> </span><span class=nf>chal_irq_disable</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_irq_enable</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_irq_restore</span><span class=p>(</span><span class=kt>bool</span><span class=w> </span><span class=n>state</span><span class=p>);</span>
+</code></pre></div> <p><strong>RAII风格封装</strong>： <div class=highlight><pre><span></span><code><span class=cp>#define CHAL_IRQ_SCOPE() \</span>
+<span class=cp>    bool __irq_state = chal_irq_disable()</span>
 
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_io_read32</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_io_write32</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 串口输出 */</span>
-<span class="n">chal_io_write8</span><span class="p">(</span><span class="n">COM1_PORT</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;H&#39;</span><span class="p">);</span>
-<span class="n">chal_io_write8</span><span class="p">(</span><span class="n">COM1_PORT</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;e&#39;</span><span class="p">);</span>
-<span class="n">chal_io_write8</span><span class="p">(</span><span class="n">COM1_PORT</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;l&#39;</span><span class="p">);</span>
-<span class="n">chal_io_write8</span><span class="p">(</span><span class="n">COM1_PORT</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;l&#39;</span><span class="p">);</span>
-<span class="n">chal_io_write8</span><span class="p">(</span><span class="n">COM1_PORT</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;o&#39;</span><span class="p">);</span>
-</code></pre></div></p>
-<h3 id="33">3.3 中断控制</h3>
-<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">chal_irq_disable</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_irq_enable</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_irq_restore</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">state</span><span class="p">);</span>
-</code></pre></div>
-<p><strong>RAII风格封装</strong>：
-<div class="highlight"><pre><span></span><code><span class="cp">#define CHAL_IRQ_SCOPE() \</span>
-<span class="cp">    bool __irq_state = chal_irq_disable()</span>
+<span class=cp>#define CHAL_IRQ_SCOPE_END() \</span>
+<span class=cp>    chal_irq_restore(__irq_state)</span>
+</code></pre></div></p> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 传统方式 */</span>
+<span class=kt>bool</span><span class=w> </span><span class=n>old_state</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_irq_disable</span><span class=p>();</span>
+<span class=c1>// ... 临界区代码 ...</span>
+<span class=n>chal_irq_restore</span><span class=p>(</span><span class=n>old_state</span><span class=p>);</span>
 
-<span class="cp">#define CHAL_IRQ_SCOPE_END() \</span>
-<span class="cp">    chal_irq_restore(__irq_state)</span>
-</code></pre></div></p>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 传统方式 */</span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">old_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_irq_disable</span><span class="p">();</span>
-<span class="c1">// ... 临界区代码 ...</span>
-<span class="n">chal_irq_restore</span><span class="p">(</span><span class="n">old_state</span><span class="p">);</span>
+<span class=cm>/* RAII方式（推荐） */</span>
+<span class=n>CHAL_IRQ_SCOPE</span><span class=p>();</span>
+<span class=c1>// ... 临界区代码 ...</span>
+<span class=n>CHAL_IRQ_SCOPE_END</span><span class=p>();</span>
+</code></pre></div></p> <h3 id=34>3.4 内存屏障</h3> <div class=highlight><pre><span></span><code><span class=kt>void</span><span class=w> </span><span class=nf>chal_barrier</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w>   </span><span class=c1>// 完整屏障</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_rbarrier</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w>  </span><span class=c1>// 读屏障</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_wbarrier</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w>  </span><span class=c1>// 写屏障</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 写入后确保完成 */</span>
+<span class=n>chal_write32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>cmd</span><span class=p>,</span><span class=w> </span><span class=n>CMD_START</span><span class=p>);</span>
+<span class=n>chal_wbarrier</span><span class=p>();</span><span class=w>  </span><span class=c1>// 确保写入完成</span>
 
-<span class="cm">/* RAII方式（推荐） */</span>
-<span class="n">CHAL_IRQ_SCOPE</span><span class="p">();</span>
-<span class="c1">// ... 临界区代码 ...</span>
-<span class="n">CHAL_IRQ_SCOPE_END</span><span class="p">();</span>
-</code></pre></div></p>
-<h3 id="34">3.4 内存屏障</h3>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">chal_barrier</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w">   </span><span class="c1">// 完整屏障</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_rbarrier</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w">  </span><span class="c1">// 读屏障</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_wbarrier</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w">  </span><span class="c1">// 写屏障</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 写入后确保完成 */</span>
-<span class="n">chal_write32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">CMD_START</span><span class="p">);</span>
-<span class="n">chal_wbarrier</span><span class="p">();</span><span class="w">  </span><span class="c1">// 确保写入完成</span>
+<span class=cm>/* 读取前确保一致性 */</span>
+<span class=n>chal_rbarrier</span><span class=p>();</span>
+<span class=n>u32</span><span class=w> </span><span class=n>status</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_read32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>status</span><span class=p>);</span>
+</code></pre></div></p> <h3 id=35>3.5 时间操作</h3> <div class=highlight><pre><span></span><code><span class=n>u64</span><span class=w> </span><span class=nf>chal_time_now</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w>              </span><span class=c1>// 获取时间戳（纳秒）</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_time_delay_us</span><span class=p>(</span><span class=n>u32</span><span class=w> </span><span class=n>us</span><span class=p>);</span><span class=w>      </span><span class=c1>// 延迟微秒</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_time_delay_ms</span><span class=p>(</span><span class=n>u32</span><span class=w> </span><span class=n>ms</span><span class=p>);</span><span class=w>      </span><span class=c1>// 延迟毫秒</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_time_delay_s</span><span class=p>(</span><span class=n>u32</span><span class=w> </span><span class=n>s</span><span class=p>);</span><span class=w>        </span><span class=c1>// 延迟秒</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 测量时间 */</span>
+<span class=n>u64</span><span class=w> </span><span class=n>start</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_time_now</span><span class=p>();</span>
+<span class=c1>// ... 执行操作 ...</span>
+<span class=n>u64</span><span class=w> </span><span class=n>elapsed</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_time_now</span><span class=p>()</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>start</span><span class=p>;</span>
 
-<span class="cm">/* 读取前确保一致性 */</span>
-<span class="n">chal_rbarrier</span><span class="p">();</span>
-<span class="n">u32</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_read32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">status</span><span class="p">);</span>
-</code></pre></div></p>
-<h3 id="35">3.5 时间操作</h3>
-<div class="highlight"><pre><span></span><code><span class="n">u64</span><span class="w"> </span><span class="nf">chal_time_now</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w">              </span><span class="c1">// 获取时间戳（纳秒）</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_time_delay_us</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">us</span><span class="p">);</span><span class="w">      </span><span class="c1">// 延迟微秒</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_time_delay_ms</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">ms</span><span class="p">);</span><span class="w">      </span><span class="c1">// 延迟毫秒</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_time_delay_s</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w">        </span><span class="c1">// 延迟秒</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 测量时间 */</span>
-<span class="n">u64</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_time_now</span><span class="p">();</span>
-<span class="c1">// ... 执行操作 ...</span>
-<span class="n">u64</span><span class="w"> </span><span class="n">elapsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_time_now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
+<span class=cm>/* 延迟 */</span>
+<span class=n>chal_time_delay_ms</span><span class=p>(</span><span class=mi>100</span><span class=p>);</span><span class=w>  </span><span class=c1>// 延迟100毫秒</span>
+</code></pre></div></p> <h3 id=36>3.6 页操作</h3> <div class=highlight><pre><span></span><code><span class=cp>#define CHAL_PAGE_SIZE    4096</span>
+<span class=cp>#define CHAL_PAGE_SHIFT   12</span>
+<span class=cp>#define CHAL_PAGE_MASK    (CHAL_PAGE_SIZE - 1)</span>
 
-<span class="cm">/* 延迟 */</span>
-<span class="n">chal_time_delay_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">  </span><span class="c1">// 延迟100毫秒</span>
-</code></pre></div></p>
-<h3 id="36">3.6 页操作</h3>
-<div class="highlight"><pre><span></span><code><span class="cp">#define CHAL_PAGE_SIZE    4096</span>
-<span class="cp">#define CHAL_PAGE_SHIFT   12</span>
-<span class="cp">#define CHAL_PAGE_MASK    (CHAL_PAGE_SIZE - 1)</span>
+<span class=n>u64</span><span class=w> </span><span class=nf>chal_page_align</span><span class=p>(</span><span class=n>u64</span><span class=w> </span><span class=n>addr</span><span class=p>);</span><span class=w>      </span><span class=c1>// 页对齐</span>
+<span class=n>u64</span><span class=w> </span><span class=nf>chal_page_floor</span><span class=p>(</span><span class=n>u64</span><span class=w> </span><span class=n>addr</span><span class=p>);</span><span class=w>      </span><span class=c1>// 页下对齐</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_page_is_aligned</span><span class=p>(</span><span class=n>u64</span><span class=w> </span><span class=n>addr</span><span class=p>);</span><span class=w> </span><span class=c1>// 检查对齐</span>
+<span class=n>u64</span><span class=w> </span><span class=nf>chal_page_number</span><span class=p>(</span><span class=n>u64</span><span class=w> </span><span class=n>addr</span><span class=p>);</span><span class=w>     </span><span class=c1>// 计算页号</span>
+<span class=n>u64</span><span class=w> </span><span class=nf>chal_page_address</span><span class=p>(</span><span class=n>u64</span><span class=w> </span><span class=n>page_num</span><span class=p>);</span><span class=w> </span><span class=c1>// 页号转地址</span>
+<span class=n>u64</span><span class=w> </span><span class=nf>chal_page_count</span><span class=p>(</span><span class=n>u64</span><span class=w> </span><span class=n>size</span><span class=p>);</span><span class=w>      </span><span class=c1>// 计算页数</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 对齐地址 */</span>
+<span class=n>u64</span><span class=w> </span><span class=n>aligned_addr</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_page_align</span><span class=p>(</span><span class=n>addr</span><span class=p>);</span>
 
-<span class="n">u64</span><span class="w"> </span><span class="nf">chal_page_align</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span><span class="w">      </span><span class="c1">// 页对齐</span>
-<span class="n">u64</span><span class="w"> </span><span class="nf">chal_page_floor</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span><span class="w">      </span><span class="c1">// 页下对齐</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_page_is_aligned</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span><span class="w"> </span><span class="c1">// 检查对齐</span>
-<span class="n">u64</span><span class="w"> </span><span class="nf">chal_page_number</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span><span class="w">     </span><span class="c1">// 计算页号</span>
-<span class="n">u64</span><span class="w"> </span><span class="nf">chal_page_address</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">page_num</span><span class="p">);</span><span class="w"> </span><span class="c1">// 页号转地址</span>
-<span class="n">u64</span><span class="w"> </span><span class="nf">chal_page_count</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w">      </span><span class="c1">// 计算页数</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 对齐地址 */</span>
-<span class="n">u64</span><span class="w"> </span><span class="n">aligned_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_page_align</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
+<span class=cm>/* 计算页数 */</span>
+<span class=n>u64</span><span class=w> </span><span class=n>num_pages</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_page_count</span><span class=p>(</span><span class=n>size</span><span class=p>);</span>
 
-<span class="cm">/* 计算页数 */</span>
-<span class="n">u64</span><span class="w"> </span><span class="n">num_pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_page_count</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class=cm>/* 计算页号 */</span>
+<span class=n>u64</span><span class=w> </span><span class=n>page_num</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_page_number</span><span class=p>(</span><span class=n>addr</span><span class=p>);</span>
+</code></pre></div></p> <h3 id=37>3.7 位操作</h3> <div class=highlight><pre><span></span><code><span class=kt>void</span><span class=w> </span><span class=nf>chal_bit_set</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_bit_clear</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_bit_toggle</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>);</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_bit_test</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>);</span>
 
-<span class="cm">/* 计算页号 */</span>
-<span class="n">u64</span><span class="w"> </span><span class="n">page_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_page_number</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
-</code></pre></div></p>
-<h3 id="37">3.7 位操作</h3>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">chal_bit_set</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_bit_clear</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_bit_toggle</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_bit_test</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_bits_set</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>mask</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_bits_clear</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>mask</span><span class=p>);</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_bits_test_all</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>mask</span><span class=p>);</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_bits_test_any</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>mask</span><span class=p>);</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 设置位 */</span>
+<span class=n>chal_bit_set</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>ctrl</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>);</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_bits_set</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">mask</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_bits_clear</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">mask</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_bits_test_all</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">mask</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_bits_test_any</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">mask</span><span class="p">);</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 设置位 */</span>
-<span class="n">chal_bit_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">ctrl</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class=cm>/* 清除位 */</span>
+<span class=n>chal_bit_clear</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>ctrl</span><span class=p>,</span><span class=w> </span><span class=mi>5</span><span class=p>);</span>
 
-<span class="cm">/* 清除位 */</span>
-<span class="n">chal_bit_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">ctrl</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class=cm>/* 测试位 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_bit_test</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>status</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 位0已设置</span>
+<span class=p>}</span>
 
-<span class="cm">/* 测试位 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_bit_test</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 位0已设置</span>
-<span class="p">}</span>
+<span class=cm>/* 测试多个位 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_bits_test_all</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>status</span><span class=p>,</span><span class=w> </span><span class=mh>0x03</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 位0和位1都已设置</span>
+<span class=p>}</span>
+</code></pre></div></p> <h3 id=38>3.8 原子操作</h3> <div class=highlight><pre><span></span><code><span class=n>u32</span><span class=w> </span><span class=nf>chal_atomic_read32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_atomic_write32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_atomic_add32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_atomic_sub32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_atomic_set_bit32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_atomic_clear_bit32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>);</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_atomic_cas32</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>expected</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>desired</span><span class=p>);</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 原子计数器 */</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_atomic_add32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>counter</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>);</span>
 
-<span class="cm">/* 测试多个位 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_bits_test_all</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="mh">0x03</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 位0和位1都已设置</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<h3 id="38">3.8 原子操作</h3>
-<div class="highlight"><pre><span></span><code><span class="n">u32</span><span class="w"> </span><span class="nf">chal_atomic_read32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_atomic_write32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_atomic_add32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_atomic_sub32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_atomic_set_bit32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">);</span>
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_atomic_clear_bit32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_atomic_cas32</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">desired</span><span class="p">);</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 原子计数器 */</span>
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_atomic_add32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">counter</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class=cm>/* 原子位操作 */</span>
+<span class=n>chal_atomic_set_bit32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>flags</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>);</span>
 
-<span class="cm">/* 原子位操作 */</span>
-<span class="n">chal_atomic_set_bit32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class=cm>/* 原子比较交换 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_atomic_cas32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>lock</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 成功获取锁</span>
+<span class=p>}</span>
+</code></pre></div></p> <h3 id=39-cpu>3.9 CPU操作</h3> <div class=highlight><pre><span></span><code><span class=kt>void</span><span class=w> </span><span class=nf>chal_cpu_halt</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w>      </span><span class=c1>// 停止CPU</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_cpu_idle</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w>      </span><span class=c1>// 空转等待</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_cpu_breakpoint</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w> </span><span class=c1>// 断点</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_cpu_fence</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span><span class=w>     </span><span class=c1>// 指令屏障</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 空转等待 */</span>
+<span class=k>while</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>condition</span><span class=p>)</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=n>chal_cpu_idle</span><span class=p>();</span>
+<span class=p>}</span>
 
-<span class="cm">/* 原子比较交换 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_atomic_cas32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 成功获取锁</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<h3 id="39-cpu">3.9 CPU操作</h3>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">chal_cpu_halt</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w">      </span><span class="c1">// 停止CPU</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_cpu_idle</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w">      </span><span class="c1">// 空转等待</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_cpu_breakpoint</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"> </span><span class="c1">// 断点</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_cpu_fence</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w">     </span><span class="c1">// 指令屏障</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 空转等待 */</span>
-<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">condition</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">chal_cpu_idle</span><span class="p">();</span>
-<span class="p">}</span>
+<span class=cm>/* 停止CPU（严重错误） */</span>
+<span class=n>chal_cpu_halt</span><span class=p>();</span>
+</code></pre></div></p> <h3 id=310>3.10 等待操作</h3> <div class=highlight><pre><span></span><code><span class=n>chal_error_t</span><span class=w> </span><span class=nf>chal_wait_until</span><span class=p>(</span><span class=kt>bool</span><span class=w> </span><span class=p>(</span><span class=o>*</span><span class=n>condition</span><span class=p>)(</span><span class=kt>void</span><span class=p>),</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>timeout_us</span><span class=p>);</span>
+<span class=n>chal_error_t</span><span class=w> </span><span class=nf>chal_wait_for_bit_set</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>timeout_us</span><span class=p>);</span>
+<span class=n>chal_error_t</span><span class=w> </span><span class=nf>chal_wait_for_bit_clear</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>bit</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>timeout_us</span><span class=p>);</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 等待位设置 */</span>
+<span class=n>chal_error_t</span><span class=w> </span><span class=n>err</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_wait_for_bit_set</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>status</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=mi>1000000</span><span class=p>);</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_ok</span><span class=p>(</span><span class=n>err</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 成功</span>
+<span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 超时</span>
+<span class=p>}</span>
+</code></pre></div></p> <hr> <h2 id=_4>四、错误处理</h2> <h3 id=41>4.1 错误代码</h3> <div class=highlight><pre><span></span><code><span class=k>typedef</span><span class=w> </span><span class=k>enum</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=n>CHAL_OK</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w>                     </span><span class=cm>/* 成功 */</span>
+<span class=w>    </span><span class=n>CHAL_ERR_INVALID_PARAM</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w>      </span><span class=cm>/* 无效参数 */</span>
+<span class=w>    </span><span class=n>CHAL_ERR_NOT_SUPPORTED</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w>      </span><span class=cm>/* 不支持的操作 */</span>
+<span class=w>    </span><span class=n>CHAL_ERR_TIMEOUT</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w>            </span><span class=cm>/* 超时 */</span>
+<span class=w>    </span><span class=n>CHAL_ERR_BUSY</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>4</span><span class=p>,</span><span class=w>               </span><span class=cm>/* 资源忙 */</span>
+<span class=w>    </span><span class=n>CHAL_ERR_NO_MEMORY</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>5</span><span class=p>,</span><span class=w>          </span><span class=cm>/* 内存不足 */</span>
+<span class=p>}</span><span class=w> </span><span class=n>chal_error_t</span><span class=p>;</span>
+</code></pre></div> <h3 id=42>4.2 错误检查工具</h3> <div class=highlight><pre><span></span><code><span class=k>const</span><span class=w> </span><span class=kt>char</span><span class=o>*</span><span class=w> </span><span class=nf>chal_strerror</span><span class=p>(</span><span class=n>chal_error_t</span><span class=w> </span><span class=n>err</span><span class=p>);</span><span class=w>  </span><span class=c1>// 错误码转字符串</span>
 
-<span class="cm">/* 停止CPU（严重错误） */</span>
-<span class="n">chal_cpu_halt</span><span class="p">();</span>
-</code></pre></div></p>
-<h3 id="310">3.10 等待操作</h3>
-<div class="highlight"><pre><span></span><code><span class="n">chal_error_t</span><span class="w"> </span><span class="nf">chal_wait_until</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">condition</span><span class="p">)(</span><span class="kt">void</span><span class="p">),</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">timeout_us</span><span class="p">);</span>
-<span class="n">chal_error_t</span><span class="w"> </span><span class="nf">chal_wait_for_bit_set</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">timeout_us</span><span class="p">);</span>
-<span class="n">chal_error_t</span><span class="w"> </span><span class="nf">chal_wait_for_bit_clear</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">bit</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">timeout_us</span><span class="p">);</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 等待位设置 */</span>
-<span class="n">chal_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_wait_for_bit_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000000</span><span class="p">);</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 成功</span>
-<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 超时</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<hr />
-<h2 id="_5">四、错误处理</h2>
-<h3 id="41">4.1 错误代码</h3>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">CHAL_OK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">                     </span><span class="cm">/* 成功 */</span>
-<span class="w">    </span><span class="n">CHAL_ERR_INVALID_PARAM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">      </span><span class="cm">/* 无效参数 */</span>
-<span class="w">    </span><span class="n">CHAL_ERR_NOT_SUPPORTED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">      </span><span class="cm">/* 不支持的操作 */</span>
-<span class="w">    </span><span class="n">CHAL_ERR_TIMEOUT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">            </span><span class="cm">/* 超时 */</span>
-<span class="w">    </span><span class="n">CHAL_ERR_BUSY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">               </span><span class="cm">/* 资源忙 */</span>
-<span class="w">    </span><span class="n">CHAL_ERR_NO_MEMORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">          </span><span class="cm">/* 内存不足 */</span>
-<span class="p">}</span><span class="w"> </span><span class="n">chal_error_t</span><span class="p">;</span>
-</code></pre></div>
-<h3 id="42">4.2 错误检查工具</h3>
-<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">chal_strerror</span><span class="p">(</span><span class="n">chal_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">);</span><span class="w">  </span><span class="c1">// 错误码转字符串</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_ok</span><span class=p>(</span><span class=n>chal_error_t</span><span class=w> </span><span class=n>err</span><span class=p>);</span><span class=w>    </span><span class=c1>// 检查成功</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_fail</span><span class=p>(</span><span class=n>chal_error_t</span><span class=w> </span><span class=n>err</span><span class=p>);</span><span class=w>  </span><span class=c1>// 检查失败</span>
+</code></pre></div> <h3 id=43>4.3 错误处理示例</h3> <div class=highlight><pre><span></span><code><span class=cm>/* 基本错误处理 */</span>
+<span class=n>chal_error_t</span><span class=w> </span><span class=n>err</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>chal_safe_read32</span><span class=p>(</span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=o>&amp;</span><span class=n>value</span><span class=p>);</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_fail</span><span class=p>(</span><span class=n>err</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=n>console_puts</span><span class=p>(</span><span class=s>&quot;Error: &quot;</span><span class=p>);</span>
+<span class=w>    </span><span class=n>console_puts</span><span class=p>(</span><span class=n>chal_strerror</span><span class=p>(</span><span class=n>err</span><span class=p>));</span>
+<span class=w>    </span><span class=n>console_puts</span><span class=p>(</span><span class=s>&quot;</span><span class=se>\n</span><span class=s>&quot;</span><span class=p>);</span>
+<span class=w>    </span><span class=k>return</span><span class=p>;</span>
+<span class=p>}</span>
 
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_ok</span><span class="p">(</span><span class="n">chal_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">);</span><span class="w">    </span><span class="c1">// 检查成功</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_fail</span><span class="p">(</span><span class="n">chal_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">);</span><span class="w">  </span><span class="c1">// 检查失败</span>
-</code></pre></div>
-<h3 id="43">4.3 错误处理示例</h3>
-<div class="highlight"><pre><span></span><code><span class="cm">/* 基本错误处理 */</span>
-<span class="n">chal_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chal_safe_read32</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_fail</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">console_puts</span><span class="p">(</span><span class="s">&quot;Error: &quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="n">console_puts</span><span class="p">(</span><span class="n">chal_strerror</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">    </span><span class="n">console_puts</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="p">;</span>
-<span class="p">}</span>
+<span class=cm>/* 简化错误检查 */</span>
+<span class=n>CHAL_MUST_SUCCESS</span><span class=p>(</span><span class=n>chal_safe_write32</span><span class=p>(</span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>value</span><span class=p>));</span>
 
-<span class="cm">/* 简化错误检查 */</span>
-<span class="n">CHAL_MUST_SUCCESS</span><span class="p">(</span><span class="n">chal_safe_write32</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">));</span>
+<span class=cm>/* 使用断言 */</span>
+<span class=n>CHAL_ASSERT</span><span class=p>(</span><span class=n>condition</span><span class=p>);</span>
+</code></pre></div> <hr> <h2 id=_5>五、版本兼容性</h2> <h3 id=51>5.1 版本信息</h3> <div class=highlight><pre><span></span><code><span class=cp>#define CHAL_VERSION_MAJOR  1</span>
+<span class=cp>#define CHAL_VERSION_MINOR  0</span>
+<span class=cp>#define CHAL_VERSION_PATCH  0</span>
+<span class=cp>#define CHAL_VERSION_STRING &quot;1.0.0&quot;</span>
+</code></pre></div> <h3 id=52>5.2 版本检查</h3> <div class=highlight><pre><span></span><code><span class=n>u32</span><span class=w> </span><span class=nf>chal_get_version</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_is_version_compatible</span><span class=p>(</span><span class=n>u32</span><span class=w> </span><span class=n>required_major</span><span class=p>,</span><span class=w> </span><span class=n>u32</span><span class=w> </span><span class=n>required_minor</span><span class=p>);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_get_api_version</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span>
+<span class=n>u32</span><span class=w> </span><span class=nf>chal_get_abi_version</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_check_api_compatibility</span><span class=p>(</span><span class=n>u32</span><span class=w> </span><span class=n>required_version</span><span class=p>);</span>
+<span class=kt>bool</span><span class=w> </span><span class=nf>chal_check_abi_compatibility</span><span class=p>(</span><span class=n>u32</span><span class=w> </span><span class=n>required_version</span><span class=p>);</span>
+</code></pre></div> <h3 id=53>5.3 兼容性规则</h3> <p><strong>API兼容性</strong>： - 主版本更高：可能兼容（向后兼容） - 主版本相同，次版本更高：兼容 - 主版本更低：不兼容</p> <p><strong>ABI兼容性</strong>： - 主版本必须完全相同 - 次版本和补丁版本可以不同</p> <h3 id=54>5.4 使用示例</h3> <div class=highlight><pre><span></span><code><span class=cm>/* 检查版本兼容性 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_is_version_compatible</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 使用v1.0+的功能</span>
+<span class=p>}</span>
 
-<span class="cm">/* 使用断言 */</span>
-<span class="n">CHAL_ASSERT</span><span class="p">(</span><span class="n">condition</span><span class="p">);</span>
-</code></pre></div>
-<hr />
-<h2 id="_6">五、版本兼容性</h2>
-<h3 id="51">5.1 版本信息</h3>
-<div class="highlight"><pre><span></span><code><span class="cp">#define CHAL_VERSION_MAJOR  1</span>
-<span class="cp">#define CHAL_VERSION_MINOR  0</span>
-<span class="cp">#define CHAL_VERSION_PATCH  0</span>
-<span class="cp">#define CHAL_VERSION_STRING &quot;1.0.0&quot;</span>
-</code></pre></div>
-<h3 id="52">5.2 版本检查</h3>
-<div class="highlight"><pre><span></span><code><span class="n">u32</span><span class="w"> </span><span class="nf">chal_get_version</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_is_version_compatible</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">required_major</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">required_minor</span><span class="p">);</span>
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_get_api_version</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="n">u32</span><span class="w"> </span><span class="nf">chal_get_abi_version</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_check_api_compatibility</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">required_version</span><span class="p">);</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">chal_check_abi_compatibility</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">required_version</span><span class="p">);</span>
-</code></pre></div>
-<h3 id="53">5.3 兼容性规则</h3>
-<p><strong>API兼容性</strong>：
-- 主版本更高：可能兼容（向后兼容）
-- 主版本相同，次版本更高：兼容
-- 主版本更低：不兼容</p>
-<p><strong>ABI兼容性</strong>：
-- 主版本必须完全相同
-- 次版本和补丁版本可以不同</p>
-<h3 id="54">5.4 使用示例</h3>
-<div class="highlight"><pre><span></span><code><span class="cm">/* 检查版本兼容性 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_is_version_compatible</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 使用v1.0+的功能</span>
-<span class="p">}</span>
+<span class=cm>/* 检查API兼容性 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_check_api_compatibility</span><span class=p>(</span><span class=n>CHAL_VERSION_1_0</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// API兼容</span>
+<span class=p>}</span>
 
-<span class="cm">/* 检查API兼容性 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_check_api_compatibility</span><span class="p">(</span><span class="n">CHAL_VERSION_1_0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// API兼容</span>
-<span class="p">}</span>
+<span class=cm>/* 检查ABI兼容性 */</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>chal_check_abi_compatibility</span><span class=p>(</span><span class=n>CHAL_VERSION_1_0</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// ABI兼容</span>
+<span class=p>}</span>
+</code></pre></div> <hr> <h2 id=c>六、C++支持</h2> <p>CHAL提供了C++命名空间包装，使C++代码使用更加方便。</p> <h3 id=61>6.1 命名空间</h3> <div class=highlight><pre><span></span><code><span class=k>namespace</span><span class=w> </span><span class=nn>chal</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 内存操作</span>
+<span class=w>    </span><span class=kr>inline</span><span class=w> </span><span class=n>u8</span><span class=w> </span><span class=nf>read8</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>);</span>
+<span class=w>    </span><span class=kr>inline</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>write8</span><span class=p>(</span><span class=k>volatile</span><span class=w> </span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>addr</span><span class=p>,</span><span class=w> </span><span class=n>u8</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+<span class=w>    </span><span class=c1>// ...</span>
 
-<span class="cm">/* 检查ABI兼容性 */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chal_check_abi_compatibility</span><span class="p">(</span><span class="n">CHAL_VERSION_1_0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// ABI兼容</span>
-<span class="p">}</span>
-</code></pre></div>
-<hr />
-<h2 id="c">六、C++支持</h2>
-<p>CHAL提供了C++命名空间包装，使C++代码使用更加方便。</p>
-<h3 id="61">6.1 命名空间</h3>
-<div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">chal</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 内存操作</span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="nf">read8</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">write8</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-<span class="w">    </span><span class="c1">// ...</span>
+<span class=w>    </span><span class=c1>// IO操作</span>
+<span class=w>    </span><span class=kr>inline</span><span class=w> </span><span class=n>u8</span><span class=w> </span><span class=nf>io_read8</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>);</span>
+<span class=w>    </span><span class=kr>inline</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>io_write8</span><span class=p>(</span><span class=n>u16</span><span class=w> </span><span class=n>port</span><span class=p>,</span><span class=w> </span><span class=n>u8</span><span class=w> </span><span class=n>val</span><span class=p>);</span>
+<span class=w>    </span><span class=c1>// ...</span>
 
-<span class="w">    </span><span class="c1">// IO操作</span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="nf">io_read8</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">);</span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">io_write8</span><span class="p">(</span><span class="n">u16</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
-<span class="w">    </span><span class="c1">// ...</span>
+<span class=w>    </span><span class=c1>// 错误检查</span>
+<span class=w>    </span><span class=kr>inline</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=nf>ok</span><span class=p>(</span><span class=n>chal_error_t</span><span class=w> </span><span class=n>err</span><span class=p>);</span>
+<span class=w>    </span><span class=kr>inline</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=nf>fail</span><span class=p>(</span><span class=n>chal_error_t</span><span class=w> </span><span class=n>err</span><span class=p>);</span>
+<span class=p>}</span>
+</code></pre></div> <h3 id=62>6.2 使用示例</h3> <div class=highlight><pre><span></span><code><span class=cp>#include</span><span class=w> </span><span class=cpf>&quot;chal.h&quot;</span>
 
-<span class="w">    </span><span class="c1">// 错误检查</span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ok</span><span class="p">(</span><span class="n">chal_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">fail</span><span class="p">(</span><span class="n">chal_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="62">6.2 使用示例</h3>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;chal.h&quot;</span>
+<span class=c1>// 使用命名空间</span>
+<span class=k>using</span><span class=w> </span><span class=k>namespace</span><span class=w> </span><span class=nn>chal</span><span class=p>;</span>
 
-<span class="c1">// 使用命名空间</span>
-<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">chal</span><span class="p">;</span>
+<span class=c1>// 读取寄存器</span>
+<span class=n>u32</span><span class=w> </span><span class=n>status</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>read32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>status</span><span class=p>);</span>
 
-<span class="c1">// 读取寄存器</span>
-<span class="n">u32</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">status</span><span class="p">);</span>
+<span class=c1>// 写入寄存器</span>
+<span class=n>write32</span><span class=p>(</span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>config</span><span class=p>,</span><span class=w> </span><span class=mh>0x12345678</span><span class=p>);</span>
 
-<span class="c1">// 写入寄存器</span>
-<span class="n">write32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="mh">0x12345678</span><span class="p">);</span>
+<span class=c1>// 错误检查</span>
+<span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>ok</span><span class=p>(</span><span class=n>err</span><span class=p>))</span><span class=w> </span><span class=p>{</span>
+<span class=w>    </span><span class=c1>// 成功</span>
+<span class=p>}</span>
+</code></pre></div> <hr> <h2 id=_6>七、调试支持</h2> <h3 id=71>7.1 调试宏</h3> <div class=highlight><pre><span></span><code><span class=cp>#ifdef CHAL_DEBUG</span>
+<span class=cp>#define CHAL_ASSERT(condition) \</span>
+<span class=cp>    do { \</span>
+<span class=cp>        if (!(condition)) { \</span>
+<span class=cp>            chal_cpu_breakpoint(); \</span>
+<span class=cp>        } \</span>
+<span class=cp>    } while(0)</span>
+<span class=cp>#else</span>
+<span class=cp>#define CHAL_ASSERT(condition) ((void)0)</span>
+<span class=cp>#endif</span>
 
-<span class="c1">// 错误检查</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// 成功</span>
-<span class="p">}</span>
-</code></pre></div>
-<hr />
-<h2 id="_7">七、调试支持</h2>
-<h3 id="71">7.1 调试宏</h3>
-<div class="highlight"><pre><span></span><code><span class="cp">#ifdef CHAL_DEBUG</span>
-<span class="cp">#define CHAL_ASSERT(condition) \</span>
-<span class="cp">    do { \</span>
-<span class="cp">        if (!(condition)) { \</span>
-<span class="cp">            chal_cpu_breakpoint(); \</span>
-<span class="cp">        } \</span>
-<span class="cp">    } while(0)</span>
-<span class="cp">#else</span>
-<span class="cp">#define CHAL_ASSERT(condition) ((void)0)</span>
-<span class="cp">#endif</span>
+<span class=cp>#define CHAL_UNREACHABLE() \</span>
+<span class=cp>    do { \</span>
+<span class=cp>        CHAL_ASSERT(0); \</span>
+<span class=cp>        chal_cpu_halt(); \</span>
+<span class=cp>    } while(0)</span>
 
-<span class="cp">#define CHAL_UNREACHABLE() \</span>
-<span class="cp">    do { \</span>
-<span class="cp">        CHAL_ASSERT(0); \</span>
-<span class="cp">        chal_cpu_halt(); \</span>
-<span class="cp">    } while(0)</span>
+<span class=cp>#define CHAL_MUST_SUCCESS(expr) \</span>
+<span class=cp>    do { \</span>
+<span class=cp>        chal_error_t _err = (expr); \</span>
+<span class=cp>        if (chal_fail(_err)) { \</span>
+<span class=cp>            CHAL_ASSERT(0); \</span>
+<span class=cp>            chal_cpu_halt(); \</span>
+<span class=cp>        } \</span>
+<span class=cp>    } while(0)</span>
+</code></pre></div> <h3 id=72>7.2 调试函数</h3> <div class=highlight><pre><span></span><code><span class=kt>void</span><span class=w> </span><span class=nf>chal_debug_print_reg</span><span class=p>(</span><span class=k>const</span><span class=w> </span><span class=kt>char</span><span class=o>*</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=k>volatile</span><span class=w> </span><span class=n>u32</span><span class=o>*</span><span class=w> </span><span class=n>reg</span><span class=p>);</span>
+<span class=kt>void</span><span class=w> </span><span class=nf>chal_debug_print_memory</span><span class=p>(</span><span class=kt>void</span><span class=o>*</span><span class=w> </span><span class=n>base</span><span class=p>,</span><span class=w> </span><span class=n>u64</span><span class=w> </span><span class=n>size</span><span class=p>);</span>
+</code></pre></div> <p><strong>使用示例</strong>： <div class=highlight><pre><span></span><code><span class=cm>/* 打印寄存器 */</span>
+<span class=n>chal_debug_print_reg</span><span class=p>(</span><span class=s>&quot;STATUS&quot;</span><span class=p>,</span><span class=w> </span><span class=o>&amp;</span><span class=n>device</span><span class=o>-&gt;</span><span class=n>status</span><span class=p>);</span>
 
-<span class="cp">#define CHAL_MUST_SUCCESS(expr) \</span>
-<span class="cp">    do { \</span>
-<span class="cp">        chal_error_t _err = (expr); \</span>
-<span class="cp">        if (chal_fail(_err)) { \</span>
-<span class="cp">            CHAL_ASSERT(0); \</span>
-<span class="cp">            chal_cpu_halt(); \</span>
-<span class="cp">        } \</span>
-<span class="cp">    } while(0)</span>
-</code></pre></div>
-<h3 id="72">7.2 调试函数</h3>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">chal_debug_print_reg</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="n">u32</span><span class="o">*</span><span class="w"> </span><span class="n">reg</span><span class="p">);</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">chal_debug_print_memory</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
-</code></pre></div>
-<p><strong>使用示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="cm">/* 打印寄存器 */</span>
-<span class="n">chal_debug_print_reg</span><span class="p">(</span><span class="s">&quot;STATUS&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">status</span><span class="p">);</span>
+<span class=cm>/* 打印内存 */</span>
+<span class=n>chal_debug_print_memory</span><span class=p>(</span><span class=n>buffer</span><span class=p>,</span><span class=w> </span><span class=mi>1024</span><span class=p>);</span>
 
-<span class="cm">/* 打印内存 */</span>
-<span class="n">chal_debug_print_memory</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="p">);</span>
+<span class=cm>/* 断言 */</span>
+<span class=n>CHAL_ASSERT</span><span class=p>(</span><span class=n>condition</span><span class=p>);</span>
 
-<span class="cm">/* 断言 */</span>
-<span class="n">CHAL_ASSERT</span><span class="p">(</span><span class="n">condition</span><span class="p">);</span>
-
-<span class="cm">/* 不可达代码 */</span>
-<span class="n">CHAL_UNREACHABLE</span><span class="p">();</span>
-</code></pre></div></p>
-<hr />
-<h2 id="_8">八、最佳实践</h2>
-<h3 id="81">8.1 使用建议</h3>
-<p>✅ <strong>优先使用CHAL</strong>：应用和服务代码优先使用CHAL，而非直接使用HAL</p>
-<p>✅ <strong>使用RAII风格</strong>：使用<code>CHAL_IRQ_SCOPE()</code>等宏自动管理资源</p>
-<p>✅ <strong>检查错误</strong>：使用<code>chal_ok()</code>和<code>chal_fail()</code>检查错误</p>
-<p>✅ <strong>版本检查</strong>：使用版本兼容性检查确保API兼容</p>
-<p>✅ <strong>使用便捷函数</strong>：使用<code>chal_wait_for_bit_set()</code>等便捷函数</p>
-<h3 id="82">8.2 避免的做法</h3>
-<p>❌ <strong>不要混合使用</strong>：不要同时使用CHAL和HAL</p>
-<p>❌ <strong>不要忽略错误</strong>：不要忽略错误检查</p>
-<p>❌ <strong>不要硬编码值</strong>：使用<code>CHAL_PAGE_SIZE</code>等常量</p>
-<p>❌ <strong>不要假设兼容性</strong>：使用版本检查确保兼容</p>
-<h3 id="83">8.3 性能考虑</h3>
-<ul>
-<li>CHAL是内联函数，性能与HAL相当</li>
-<li>内存屏障和原子操作有性能开销，谨慎使用</li>
-<li>等待操作可以使用轮询或中断，根据场景选择</li>
-</ul>
-<hr />
-<h2 id="_9">九、迁移指南</h2>
-<h3 id="91-halchal">9.1 从HAL迁移到CHAL</h3>
-<p><strong>旧代码（HAL）</strong>：
-<div class="highlight"><pre><span></span><code><span class="n">hal_inb</span><span class="p">(</span><span class="n">port</span><span class="p">);</span>
-<span class="n">hal_outb</span><span class="p">(</span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
-<span class="n">hal_memory_barrier</span><span class="p">();</span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hal_disable_interrupts</span><span class="p">();</span>
-<span class="c1">// ... 临界区 ...</span>
-<span class="n">hal_restore_interrupts</span><span class="p">(</span><span class="n">state</span><span class="p">);</span>
-</code></pre></div></p>
-<p><strong>新代码（CHAL）</strong>：
-<div class="highlight"><pre><span></span><code><span class="n">chal_io_read8</span><span class="p">(</span><span class="n">port</span><span class="p">);</span>
-<span class="n">chal_io_write8</span><span class="p">(</span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
-<span class="n">chal_barrier</span><span class="p">();</span>
-<span class="n">CHAL_IRQ_SCOPE</span><span class="p">();</span>
-<span class="c1">// ... 临界区 ...</span>
-<span class="n">CHAL_IRQ_SCOPE_END</span><span class="p">();</span>
-</code></pre></div></p>
-<h3 id="92">9.2 迁移检查清单</h3>
-<ul>
-<li>[ ] 替换<code>hal_in*</code>/<code>hal_out*</code>为<code>chal_io_read*</code>/<code>chal_io_write*</code></li>
-<li>[ ] 替换内存屏障为<code>chal_barrier*</code></li>
-<li>[ ] 使用<code>CHAL_IRQ_SCOPE()</code>替换手动中断管理</li>
-<li>[ ] 使用<code>chal_ok()</code>/<code>chal_fail()</code>检查错误</li>
-<li>[ ] 使用<code>CHAL_PAGE_SIZE</code>等常量替代硬编码值</li>
-<li>[ ] 添加版本兼容性检查</li>
-</ul>
-<hr />
-<h2 id="_10">十、参考文档</h2>
-<ul>
-<li><a href="../Wiki/10-HardwareAbstractionLayer.md">HAL硬件抽象层</a></li>
-<li><a href="./api_interface_list.md">API接口列表</a></li>
-<li><a href="./interface_classification.md">接口分类与维护原则</a></li>
-<li><a href="./api_developer_guide.md">API开发者指南</a></li>
-</ul>
-<hr />
-<h2 id="_11">更新日志</h2>
-<h3 id="v100-2026-02-26">v1.0.0 (2026-02-26)</h3>
-<ul>
-<li>初始版本</li>
-<li>完整的兼容性硬件抽象接口</li>
-<li>简单、直观、方便的设计原则</li>
-<li>API/ABI兼容性保证</li>
-<li>C++命名空间支持</li>
-<li>调试和性能统计支持</li>
-</ul>
-
-
-
-
-
-
-
-  
-    
-  
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="最后更新">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月13日 02:46:04 UTC">2026年3月13日</span>
-  </span>
-
-    
-    
-    
-    
-  </aside>
-
-
-
-
-<div class="md-typeset" style="margin-top: 2em;">
-  <script src="https://giscus.app/client.js"
-        data-repo="DslsDZC/hic-wiki"
-        data-repo-id="R_kgDORfnhAw"
-        data-category="Announcements"
-        data-category-id="DIC_kwDORfnhA84C4Rfk"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-  </script>
-</div>
-                
-  <div class="md-typeset" style="margin-top: 2em;">
-  <script src="https://giscus.app/client.js"
-        data-repo="DslsDZC/hic-wiki"
-        data-repo-id="R_kgDORfnhAw"
-        data-category="Announcements"
-        data-category-id="DIC_kwDORfnhA84C4Rfk"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-  </script>
-</div>
-
-              </article>
-            </div>
-          
-          
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; 2026 HIC 社区
-    </div>
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
-        
-<div class="md-social">
-  
-    
-    
-    
-    
-      
-      
-    
-    <a href="https://github.com/DslsDZC/HIC" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
-    </a>
-  
-</div>
-      
-    </div>
-  </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
-    
-    
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
-      
-    
-  </body>
-</html>
+<span class=cm>/* 不可达代码 */</span>
+<span class=n>CHAL_UNREACHABLE</span><span class=p>();</span>
+</code></pre></div></p> <hr> <h2 id=_7>八、最佳实践</h2> <h3 id=81>8.1 使用建议</h3> <p>✅ <strong>优先使用CHAL</strong>：应用和服务代码优先使用CHAL，而非直接使用HAL</p> <p>✅ <strong>使用RAII风格</strong>：使用<code>CHAL_IRQ_SCOPE()</code>等宏自动管理资源</p> <p>✅ <strong>检查错误</strong>：使用<code>chal_ok()</code>和<code>chal_fail()</code>检查错误</p> <p>✅ <strong>版本检查</strong>：使用版本兼容性检查确保API兼容</p> <p>✅ <strong>使用便捷函数</strong>：使用<code>chal_wait_for_bit_set()</code>等便捷函数</p> <h3 id=82>8.2 避免的做法</h3> <p>❌ <strong>不要混合使用</strong>：不要同时使用CHAL和HAL</p> <p>❌ <strong>不要忽略错误</strong>：不要忽略错误检查</p> <p>❌ <strong>不要硬编码值</strong>：使用<code>CHAL_PAGE_SIZE</code>等常量</p> <p>❌ <strong>不要假设兼容性</strong>：使用版本检查确保兼容</p> <h3 id=83>8.3 性能考虑</h3> <ul> <li>CHAL是内联函数，性能与HAL相当</li> <li>内存屏障和原子操作有性能开销，谨慎使用</li> <li>等待操作可以使用轮询或中断，根据场景选择</li> </ul> <hr> <h2 id=_8>九、迁移指南</h2> <h3 id=91-halchal>9.1 从HAL迁移到CHAL</h3> <p><strong>旧代码（HAL）</strong>： <div class=highlight><pre><span></span><code><span class=n>hal_inb</span><span class=p>(</span><span class=n>port</span><span class=p>);</span>
+<span class=n>hal_outb</span><span class=p>(</span><span class=n>port</span><span class=p>,</span><span class=w> </span><span class=n>value</span><span class=p>);</span>
+<span class=n>hal_memory_barrier</span><span class=p>();</span>
+<span class=kt>bool</span><span class=w> </span><span class=n>state</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>hal_disable_interrupts</span><span class=p>();</span>
+<span class=c1>// ... 临界区 ...</span>
+<span class=n>hal_restore_interrupts</span><span class=p>(</span><span class=n>state</span><span class=p>);</span>
+</code></pre></div></p> <p><strong>新代码（CHAL）</strong>： <div class=highlight><pre><span></span><code><span class=n>chal_io_read8</span><span class=p>(</span><span class=n>port</span><span class=p>);</span>
+<span class=n>chal_io_write8</span><span class=p>(</span><span class=n>port</span><span class=p>,</span><span class=w> </span><span class=n>value</span><span class=p>);</span>
+<span class=n>chal_barrier</span><span class=p>();</span>
+<span class=n>CHAL_IRQ_SCOPE</span><span class=p>();</span>
+<span class=c1>// ... 临界区 ...</span>
+<span class=n>CHAL_IRQ_SCOPE_END</span><span class=p>();</span>
+</code></pre></div></p> <h3 id=92>9.2 迁移检查清单</h3> <ul> <li>[ ] 替换<code>hal_in*</code>/<code>hal_out*</code>为<code>chal_io_read*</code>/<code>chal_io_write*</code></li> <li>[ ] 替换内存屏障为<code>chal_barrier*</code></li> <li>[ ] 使用<code>CHAL_IRQ_SCOPE()</code>替换手动中断管理</li> <li>[ ] 使用<code>chal_ok()</code>/<code>chal_fail()</code>检查错误</li> <li>[ ] 使用<code>CHAL_PAGE_SIZE</code>等常量替代硬编码值</li> <li>[ ] 添加版本兼容性检查</li> </ul> <hr> <h2 id=_9>十、参考文档</h2> <ul> <li><a href=../API%E5%88%97%E8%A1%A8/ >API接口列表</a></li> <li><a href=../%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83/ >接口分类与维护原则</a></li> <li><a href=../API%E5%BC%80%E5%8F%91/ >API开发者指南</a></li> </ul> <hr> <h2 id=_10>更新日志</h2> <h3 id=v100-2026-02-26>v1.0.0 (2026-02-26)</h3> <ul> <li>初始版本</li> <li>完整的兼容性硬件抽象接口</li> <li>简单、直观、方便的设计原则</li> <li>API/ABI兼容性保证</li> <li>C++命名空间支持</li> <li>调试和性能统计支持</li> </ul> <aside class=md-source-file> <span class=md-source-file__fact> <span class=md-icon title=最后更新> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg> </span> <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月13日 03:34:51 UTC">2026年3月13日</span> </span> </aside> <div class=md-typeset style="margin-top: 2em;"> <script src=https://giscus.app/client.js data-repo=DslsDZC/hic-wiki data-repo-id=R_kgDORfnhAw data-category=Announcements data-category-id=DIC_kwDORfnhA84C4Rfk data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN data-loading=lazy crossorigin=anonymous async>
+  </script> </div> <div class=md-typeset style="margin-top: 2em;"> <script src=https://giscus.app/client.js data-repo=DslsDZC/hic-wiki data-repo-id=R_kgDORfnhAw data-category=Announcements data-category-id=DIC_kwDORfnhA84C4Rfk data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN data-loading=lazy crossorigin=anonymous async>
+  </script> </div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> <div class=md-copyright__highlight> Copyright &copy; 2026 HIC 社区 </div> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> <div class=md-social> <a href=https://github.com/DslsDZC/HIC target=_blank rel=noopener title=github.com class=md-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 512 512"><!-- Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script> <script src=../assets/javascripts/bundle.79ae519e.min.js></script> </body> </html>
