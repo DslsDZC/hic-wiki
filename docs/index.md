@@ -52,9 +52,8 @@
 
 # HIC 架构文档索引
 
-<a id="guide-qq" href="javascript:void(0)">深度交流</a> | 
-<a href="https://github.com/DslsDZC/HIC/discussions" target="_blank">技术讨论</a> | 
-<a id="guide-share" href="javascript:void(0)">分享项目</a>
+<a id="guide-qq" href="javascript:void(0)">交流</a> | 
+<a href="https://github.com/DslsDZC/HIC/discussions" target="_blank">讨论</a>
 
 欢迎阅读 HIC（分级隔离内核）架构文档。本文档集收录了 HIC 的设计理念、核心机制、接口规范、启动流程及动态特性等各方面的详细说明。所有文档均采用 Markdown 格式，方便阅读和协作。(有彩蛋)
 
@@ -92,7 +91,4 @@
 - **[CHAL兼容层.md](./CHAL兼容层.md)**  
   介绍 CHAL（核心硬件抽象层）的设计原则、接口分类及使用示例，体现零开销抽象理念。
 
----
-
-*注：所有文档均遵循 HIC 官方规范，如有更新将在 [GitHub 仓库](https://github.com/DslsDZC/hic-wiki) 中同步。*
 
